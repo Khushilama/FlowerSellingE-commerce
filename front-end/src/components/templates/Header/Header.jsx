@@ -38,21 +38,21 @@ const Header = () => {
             </li>
           </ul>
         </nav>
-        <div className="gap-30"></div>
-        <div className="flex flex-row justify-center items-center gap-10">
+        {/* <div className="gap-30"></div> */}
+        <div className="flex flex-row justify-center items-center  ml-40 gap-10">
           <div className="flex flex-row justify-center items-center rounded-md">
             <InputSearch />
           </div>
-        </div>
 
-        <div>
-          <CiHeart />
-        </div>
-        <div>
-          <GoPerson />
-        </div>
-        <div>
-          <LuShoppingCart />
+          <div>
+            <CiHeart size={24} />
+          </div>
+          <div>
+            <GoPerson size={24} />
+          </div>
+          <div>
+            <LuShoppingCart size={24}/>
+          </div>
         </div>
       </div>
     </div>
