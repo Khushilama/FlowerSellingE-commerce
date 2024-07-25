@@ -1,29 +1,67 @@
 import React from "react";
 import HeaderContent from "../HeaderContent/HeaderContent";
 import Home from "../../../assets/Image/Home.jpg";
+import Home1 from "../../../assets/Image/1.jpeg";
+import Home2 from "../../../assets/Image/2.jpg";
+import Pansy from "../../../assets/Image/pansy.webp";
+import Pinnata from "../../../assets/Image/pinnata.jpg";
 import { Carousel } from "@material-tailwind/react";
+import ShopNowButton from "../../molecule/FirstContainer/ShopNowButton/shopNow"; // Adjust the path as needed
 
 const HomePage = () => {
-  console.log(Home); // Check if the image path is correct in the console
+  console.log(Home);
+
+  const handleClick = () => {
+    alert('Button clicked!');
+  };
 
   return (
-    <HeaderContent>
-      <Carousel className=" h-[38rem]">
-        <img src={Home} alt="image 1" className="h-full w-full object-cover" />
-        <img
-          src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
-          alt="image 2"
-          className="h-full w-full object-cover"
-        />
-        <img
-          src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
-          alt="image 3"
-          className="h-full w-full object-cover"
-        />
+    <>
+      <HeaderContent />
+      <Carousel className="h-[38rem]">
+        <div className="relative h-full w-full">
+          <img
+            src={Home}
+            alt="image 1"
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 flex flex-col items-start justify-center p-20 space-y-3">
+            <h1 className="text-white text-2xl font-bold">Flowers / Gifts</h1>
+            <div>
+              <h1 className="text-white text-[65px] font-semibold">Beauty</h1>
+              <h1 className="text-white text-[65px] font-semibold">and Blooms</h1>
+            </div>
+            <ShopNowButton onClick={handleClick}>Shop Now</ShopNowButton>
+          </div>
+        </div>
+        <div className="relative h-full w-full">
+          <img
+            src={Home1}
+            alt="image 2"
+            className="h-full w-full object-cover"
+          />
+        </div>
+        <div className="relative h-full w-full">
+          <img
+            src={Home2}
+            alt="image 3"
+            className="h-full w-full object-cover"
+          />
+        </div>
       </Carousel>
-      {/* You can add some content here to check if the div is rendering correctly */}
-      <h1>Hi hello </h1>
-    </HeaderContent>
+      <div className="flex justify-center mt-32 space-x-4">
+        <img
+          src={Pansy}
+          alt="additional image"
+          className="h-[356px] w-[605px] object-cover rounded-xl"
+        />
+        <img
+          src={Pinnata}
+          alt="additional image"
+          className="h-[356px] w-[605px] object-cover rounded-xl"
+        />
+      </div>
+    </>
   );
 };
 
