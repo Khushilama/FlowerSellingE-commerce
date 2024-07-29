@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 
 import  HomePage  from './components/page/HomePage/HomePage';
 import About from './components/page/About/About';
-import Blog from './components/page/Blog/BlogPage';
+import Blog from './components/page/Wedding/BlogPage';
 
 
 
@@ -15,7 +15,7 @@ const AppRoutes = () =>{
             
                 <Route path='/home' element={<HomePage  />}/>
                 <Route path='/about' element={<About/>}/>
-                <Route path='/blog' element={<Blog/>}/>
+                <Route path='/Blog' element={<Blog/>}/>
                 <Route path="/*" element={<Navigate to="/home" />} />
             </Routes>
            </BrowserRouter>

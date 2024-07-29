@@ -6,6 +6,8 @@ import Home2 from "../../../assets/Image/2.jpg";
 import Pansy from "../../../assets/Image/pansy.webp";
 import Pinnata from "../../../assets/Image/pinnata.jpg";
 import { Carousel } from "@material-tailwind/react";
+import NewArrivals from "../../molecule/NewArrivals/newarrivals";
+import BigSaving from "../../molecule/BigSavingZone/bigsaving";
 import ShopNowButton from "../../molecule/FirstContainer/ShopNowButton/shopNow"; // Adjust the path as needed
 
 const HomePage = () => {
@@ -50,16 +52,38 @@ const HomePage = () => {
         </div>
       </Carousel>
       <div className="flex justify-center mt-32 space-x-4">
-        <img
-          src={Pansy}
-          alt="additional image"
-          className="h-[356px] w-[605px] object-cover rounded-xl"
-        />
-        <img
-          src={Pinnata}
-          alt="additional image"
-          className="h-[356px] w-[605px] object-cover rounded-xl"
-        />
+        <div className="relative">
+          <img
+            src={Pansy}
+            alt="additional image"
+            className="h-[356px] w-[605px] object-cover rounded-xl"
+          />
+          <div className="absolute inset-0 flex flex-col items-start justify-center p-10 gap-7 text-white">
+            <span className="text-lg font-bold">Low Price</span>
+            <span className="text-3xl font-bold italic">Gifts</span>
+            <span className="text-base italic font-bold">Up to 50% Off</span>
+            <span className="text-sm font-bold italic underline">Explore Items</span>
+          </div>
+        </div>
+        <div className="relative">
+          <img
+            src={Pinnata}
+            alt="additional image"
+            className="h-[356px] w-[605px] object-cover rounded-xl"
+          />
+          <div className="absolute inset-0 flex flex-col items-start justify-center p-10 gap-7 text-white">
+            <span className="text-lg font-bold">Beauty and Bloom Presents</span>
+            <span className="text-3xl font-bold italic">Blushing Bride Bouquet</span>
+            <span className="text-base italic font-bold">Up to 50% Off</span>
+            <span className="text-sm font-bold italic underline">Explore Items</span>
+          </div>
+        </div>
+      </div>
+      <div className="mt-32 space-x-4">
+        <NewArrivals />
+      </div>
+      <div className="mt-32 space-x-4">
+        <BigSaving/>
       </div>
     </>
   );
