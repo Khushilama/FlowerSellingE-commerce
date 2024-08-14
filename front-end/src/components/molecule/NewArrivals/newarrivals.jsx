@@ -8,7 +8,7 @@ const NewArrivals = () => {
   return (
     <div className="text-start gap-5">
       <h1 className="text-3xl font-normal my-8 italic pl-28">New Arrivals</h1>
-      <div className="flex  pl-28 justify-around ">
+      <div className="flex  pl-16 justify-around ">
         <div>
         <img
           src={Image1}

@@ -14,7 +14,7 @@ const Header = () => {
   };
 
   return (
-    <div className="w-full flex flex-row items-center outline-gray-90000 outline- fixed bg-white	 h-16 p-8">
+    <div className="w-full flex flex-row items-center outline-gray-90000 outline- fixed bg-white h-16 p-8">
       <div className="text-center px-10">
         <p className="text-2xl text-black font-semibold underline decoration-inherit">
           BEAUTY & BLOOMS
@@ -53,20 +53,20 @@ const Header = () => {
             </li>
             <li
               className={`text-black italic ${
-                selected === "/event" ? "font-bold" : ""
-              }`}
-            >
-              <Link to="/event" onClick={() => handleClick("/event")}>
-                Event
-              </Link>
-            </li>
-            <li
-              className={`text-black italic ${
                 selected === "/flower" ? "font-bold" : ""
               }`}
             >
               <Link to="/flower" onClick={() => handleClick("/flower")}>
                 Flower
+              </Link>
+            </li>
+            <li
+              className={`text-black italic ${
+                selected === "/contact" ? "font-bold" : ""
+              }`}
+            >
+              <Link to="/contact" onClick={() => handleClick("/contact")}>
+                Contact
               </Link>
             </li>
           </ul>
@@ -80,7 +80,9 @@ const Header = () => {
             <CiHeart size={24} />
           </div>
           <div>
-            <GoPerson size={24} />
+            <Link to="/login">
+              <GoPerson size={24} />
+            </Link>
           </div>
           <div>
             <LuShoppingCart size={24} />

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 import HeaderContent from "../HeaderContent/HeaderContent";
 import Home from "../../../assets/Image/Home.jpg";
 import Home1 from "../../../assets/Image/1.jpeg";
@@ -8,13 +9,18 @@ import Pinnata from "../../../assets/Image/pinnata.jpg";
 import { Carousel } from "@material-tailwind/react";
 import NewArrivals from "../../molecule/NewArrivals/newarrivals";
 import BigSaving from "../../molecule/BigSavingZone/bigsaving";
-import ShopNowButton from "../../molecule/FirstContainer/ShopNowButton/shopNow"; // Adjust the path as needed
+import ShopNowButton from "../../molecule/FirstContainer/ShopNowButton/shopNow"; 
+import Footer from "../../molecule/Footer/footer";
 
 const HomePage = () => {
-  console.log(Home);
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
-  const handleClick = () => {
-    alert('Button clicked!');
+  const handleShopNowClick = () => {
+    navigate("/flower"); // Navigate to /flower when the button is clicked
+  };
+
+  const handleExploreItemsClick = () => {
+    navigate("/flower"); // Navigate to /flower when the span is clicked
   };
 
   return (
@@ -33,7 +39,7 @@ const HomePage = () => {
               <h1 className="text-white text-[65px] font-semibold">Beauty</h1>
               <h1 className="text-white text-[65px] font-semibold">and Blooms</h1>
             </div>
-            <ShopNowButton onClick={handleClick}>Shop Now</ShopNowButton>
+            <ShopNowButton onClick={handleShopNowClick}>Shop Now</ShopNowButton>
           </div>
         </div>
         <div className="relative h-full w-full">
@@ -62,7 +68,12 @@ const HomePage = () => {
             <span className="text-lg font-bold">Low Price</span>
             <span className="text-3xl font-bold italic">Gifts</span>
             <span className="text-base italic font-bold">Up to 50% Off</span>
-            <span className="text-sm font-bold italic underline">Explore Items</span>
+            <span
+              className="text-sm font-bold italic underline cursor-pointer"
+              onClick={handleExploreItemsClick} // Add click handler
+            >
+              Explore Items
+            </span>
           </div>
         </div>
         <div className="relative">
@@ -75,7 +86,12 @@ const HomePage = () => {
             <span className="text-lg font-bold">Beauty and Bloom Presents</span>
             <span className="text-3xl font-bold italic">Blushing Bride Bouquet</span>
             <span className="text-base italic font-bold">Up to 50% Off</span>
-            <span className="text-sm font-bold italic underline">Explore Items</span>
+            <span
+              className="text-sm font-bold italic underline cursor-pointer"
+              onClick={handleExploreItemsClick} // Add click handler
+            >
+              Explore Items
+            </span>
           </div>
         </div>
       </div>
@@ -84,6 +100,9 @@ const HomePage = () => {
       </div>
       <div className="mt-32 space-x-4">
         <BigSaving/>
+      </div>
+      <div className="mt-32 space-x-4">
+      <Footer/>
       </div>
     </>
   );
