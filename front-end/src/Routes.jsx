@@ -8,6 +8,8 @@ import Login from './components/organisms/LogInPage/login';
 import Signup from './components/organisms/SIgnUp/signup';
 import ContactPage from './components/page/Contact/contactPage';
 import FlowerPage from './components/page/FlowerPage/flowerPage';
+import CartEmpty from './components/organisms/addToCart/addtocart'
+import ProductDetail from './components/page/ProductDetail/ProductDetail';
 
 
 const AppRoutes = () => {
@@ -19,9 +21,11 @@ const AppRoutes = () => {
                 <Route path='/blog' element={<Blog />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/signup' element={<Signup />} />
+                <Route path='/cart' element={<CartEmpty />} /> 
                 <Route path='/contact' element={<ContactPage />} />
                 <Route path='/flower' element={<FlowerPage />} />
                 <Route path="/*" element={<Navigate to="/home" />} />
+                <Route path="/productdetail" element={<ProductDetail/>} />
             </Routes>
         </BrowserRouter>
     );

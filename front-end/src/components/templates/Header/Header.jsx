@@ -85,7 +85,9 @@ const Header = () => {
             </Link>
           </div>
           <div>
-            <LuShoppingCart size={24} />
+          <Link to="/cart"> 
+              <LuShoppingCart size={24} />
+            </Link>
           </div>
         </div>
       </div>

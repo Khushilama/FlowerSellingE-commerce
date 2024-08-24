@@ -1,31 +1,32 @@
 import React from 'react';
 
-const VideoPlayer = ({videos, text}) => {
-    return(
-        <div className='flex w-2/3 h-[350px] bg-[#DBD8D7] mx-20 shadow-lg rounded-lg overflow-hidden my-20'>
-        <div className='flex-1 flex flex-col justify-center'>
-          <p></p>
-          <p className='text-xl font-medium leading-relaxed text-gray-700 ps-10'>
+const VideoPlayer = ({ videos, text }) => {
+  return (
+    <div className="max-w-4xl mx-auto my-20 shadow-xl rounded-lg overflow-hidden">
+      <div className="flex flex-col lg:flex-row">
+        {/* Text Section */}
+        <div className="flex-1 flex flex-col justify-center bg-gray-50 p-8">
+          <p className="text-2xl font-semibold text-gray-800 leading-relaxed">
             {text}
           </p>
         </div>
-        <div className='flex-[1] mx-10 my-10'>
+
+        {/* Video Section */}
+        <div className="flex-1 bg-black">
           <video
-            width="100%"
-            height="100%"
+            className="w-full h-full object-cover rounded-b-lg lg:rounded-none lg:rounded-r-lg"
             autoPlay
             loop
-            muted // Ensure the video is muted if autoplay is used
-            className='object-cover h-full'
-            controls // This attribute adds the video controls
+            muted
+            controls
           >
             <source src={videos} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
       </div>
-    )
-}
+    </div>
+  );
+};
 
 export default VideoPlayer;
-
