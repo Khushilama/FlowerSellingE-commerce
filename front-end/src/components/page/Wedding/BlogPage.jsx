@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import HeaderContent from "../HeaderContent/HeaderContent";
 import axios from "axios";
 import Footer from "../../molecule/Footer/footer";
-
+import BuyButton from "../../atoms/BuyButton/buybutton";
 const BlogPage = () => {
   const [productList, setProductList] = useState([]);
 
@@ -33,9 +33,18 @@ const BlogPage = () => {
                 className="w-full h-40 object-cover rounded-t-lg mb-4"
               />
               <h2 className="text-xl font-semibold mb-2">{product.product_name}</h2>
-              <p className="text-gray-700 mb-4">{product.product_desc}</p>
-              <p className="text-green-500 font-bold">${product.price}</p>
-              <p className="text-gray-500">{product.categories}</p>
+              <p className="text-gray-700 overflow-auto p-2 mb-4 h-48">{product.product_desc}</p>
+
+                <div className="flex justify-between">
+                <div>
+                  <p className="text-green-500 font-bold">${product.price}</p>
+                  <p className="text-gray-500">{product.categories}</p>
+                </div>
+                <div>
+                  <BuyButton children={"Buy Now"} />
+                </div>
+              </div>
+              
             </div>
           ))}
         </div>

@@ -77,16 +77,19 @@ const Header = () => {
           </div>
 
           <div>
-            <CiHeart size={24} />
+            <Link to="/wishlist"> 
+              <CiHeart size={24} />
+            </Link>
+          </div>
+         
+          <div>
+          <Link to="/cart"> 
+              <LuShoppingCart size={24} />
+            </Link>
           </div>
           <div>
             <Link to="/login">
               <GoPerson size={24} />
-            </Link>
-          </div>
-          <div>
-          <Link to="/cart"> 
-              <LuShoppingCart size={24} />
             </Link>
           </div>
         </div>

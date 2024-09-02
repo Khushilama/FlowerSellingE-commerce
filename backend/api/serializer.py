@@ -1,5 +1,6 @@
 from rest_framework import serializers
 class ProductListserializers(serializers.Serializer):
+    id = serializers.IntegerField()
     product_name = serializers.CharField(max_length=255)
     price = serializers.IntegerField()
     image = serializers.ImageField()

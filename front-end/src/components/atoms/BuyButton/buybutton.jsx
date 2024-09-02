@@ -4,11 +4,10 @@ const BuyButton = ({ children, onClick, className }) => {
   return (
     <button
       onClick={onClick}
-      className={`h-[30px] w-[120px] bg-[#8A33FD] text-black font-semibold rounded transition duration-300 ${className}`}
+      className={`w-[120px] bg-purple-500 hover:bg-purple-600p-1 text-white font-normal rounded-md transition duration-300 ${className}`}
       style={{
         fontFamily: 'ABeeZee, sans-serif',
-        fontSize: '24px',
-        fontStyle: 'italic',
+        fontSize: '20px',
         fontWeight: '400',
         lineHeight: '28.37px',
         textAlign: 'center',

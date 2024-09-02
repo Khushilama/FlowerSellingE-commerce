@@ -41,7 +41,7 @@ function Footer() {
             <h2 className="text-2xl font-bold text-gray-200 mb-4 italic">Location</h2>
             <ul>
               <li className="mb-2"><FaEnvelope className="inline mr-2"/> beautyandblooms.com.np</li>
-              <li className="mb-2"><FaMapMarkerAlt className="inline mr-2"/> Shyambhu, Karkhanachowk</li>
+              <li className="mb-2"><FaMapMarkerAlt className="inline mr-2"/> Swyambhu, Karkhanachowk</li>
             </ul>
           </div>
         </div>

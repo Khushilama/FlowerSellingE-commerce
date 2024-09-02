@@ -1,20 +1,21 @@
 import React from 'react';
-import cart from '../../../assets/Image/cart.png'; 
-import HeaderContent from "../../page/HeaderContent/HeaderContent.jsx";
+import HeaderContent from '../../page/HeaderContent/HeaderContent';
 import Footer from "../../molecule/Footer/footer";
+import cart from '../../../assets/Image/cart.png';
 import { useNavigate } from 'react-router-dom';
-function CartEmpty() {
-  const navigate = useNavigate();
+function WishList() {
+    const navigate = useNavigate();
   return (
+    
     <>
-      <HeaderContent /> 
-      <div className="flex flex-col items-center justify-center h-screen bg-cream-50">
+    <HeaderContent/>
+    <div className="flex flex-col items-center justify-center h-screen bg-cream-50">
         <div>
           <img src={cart} alt="cart is empty" />
         </div>
        
         <div className="mt-8 text-center text-xl">
-          Your cart is empty and sad :(
+          Your wishlist is empty and sad :(
         </div>
         <div className="mt-2 text-center text-sm text-gray-600">
           Add something to make it happy!
@@ -26,12 +27,11 @@ function CartEmpty() {
           Continue Shopping
         </button>
       </div>
-      <div className="mt-12">
+    <div className="mt-12">
         <Footer />
       </div>
-  
     </>
   );
 }
 
-export default CartEmpty;
+export default WishList;
