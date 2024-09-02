@@ -90,7 +90,7 @@ function App() {
                 className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer text-sm text-gray-600"
                 onClick={handleShowPassword}
               >
-                {/* {showPassword ? 'Hide' : 'Show'} */}
+               
               </span>
             </div>
             <p className="text-xs text-gray-600 mb-6">Use 8 or more characters with a mix of letters, numbers & symbols</p>
