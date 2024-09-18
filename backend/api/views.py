@@ -1,8 +1,16 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.exceptions import NotFound
-from .models import ProductList
-from .serializer import ProductListserializers
+from .models import ProductList,AddtoCart
+from .serializer import ProductListserializers, AddtoCartSerializer
+from rest_framework import viewsets
+
+@api_view(['GET'])
+def product_list_data(request):
+    
+    products = ProductList.objects.all()
+    serializer = ProductListserializers(products, many=True)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def product_list(request, types=None):
@@ -28,4 +36,12 @@ def get_product(request, id=None):
         return Response(serializer.data)
     except ProductList.DoesNotExist:
         raise NotFound(detail='Product not found')
+    
+
+
+
+class AddtoCartViewSet(viewsets.ModelViewSet):
+    queryset = AddtoCart.objects.all()
+    serializer_class = AddtoCartSerializer
+
 

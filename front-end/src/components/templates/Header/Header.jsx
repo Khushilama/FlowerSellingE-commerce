@@ -66,7 +66,7 @@ const Header = () => {
               }`}
             >
               <Link to="/contact" onClick={() => handleClick("/contact")}>
-                Contact
+                Influencer
               </Link>
             </li>
           </ul>

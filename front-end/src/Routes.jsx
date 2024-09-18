@@ -12,6 +12,9 @@ import CartEmpty from './components/organisms/addToCart/addtocart'
 import ProductDetail from './components/page/ProductDetail/ProductDetail';
 import WishList from './components/organisms/Wishlist/wishlist';
 import Cartdetails from './components/page/CartDetails/cartdetails';
+import Checkout from './components/organisms/Checkout/Checkout';
+import OrderConfirmation from './components/organisms/OrderConfirm/Orderconfirm';
+import InfluencerSignupPage from './components/organisms/InfluencerSignUpPage/InfluencerSignUpPage';
 const AppRoutes = () => {
     return (
         <BrowserRouter>
@@ -27,6 +30,9 @@ const AppRoutes = () => {
                 <Route path="/*" element={<Navigate to="/home" />} />
                 <Route path='/wishlist' element={<WishList />} />
                 <Route path='/cartdetails' element={<Cartdetails/>} />
+                <Route path="/checkout" element={<Checkout />} /> 
+                <Route path='/orderconfirmation' element={<OrderConfirmation />} /> 
+                <Route path='/influencerSignupPage' element={<InfluencerSignupPage/>} />
                 <Route path="/productdetail/:id" element={<ProductDetail/>} />
             </Routes>
         </BrowserRouter>
