@@ -1,0 +1,8 @@
+setup.py
+happybot/__init__.py
+happybot/dataconvertert.py
+happybot.egg-info/PKG-INFO
+happybot.egg-info/SOURCES.txt
+happybot.egg-info/dependency_links.txt
+happybot.egg-info/requires.txt
+happybot.egg-info/top_level.txt

@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: happybot
+Version: 0.0.1
+Author: khusi
+Author-email: lamakhusee@gmail.com
+Requires-Dist: langchain-astradb
+Requires-Dist: langchain
+Requires-Dist: langchain_google_genai
+Requires-Dist: datasets
+Requires-Dist: pypdf
+Requires-Dist: python-dotenv
+Requires-Dist: flask

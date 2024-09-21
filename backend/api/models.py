@@ -38,5 +38,19 @@ class AddtoCart(models.Model):
 
     def __str__(self):
         return f'Product ID: {self.product_id}, Quantity: {self.quantity}'
+    
 
+# class SignUp(models.Model):
+#     name = models.CharField(max_length=50)
+#     email = models.EmailField()
+#     password = models.CharField()
+#     profile_image = models.ImageField(upload_to='profile_images/') 
+
+
+#wishlist model
+class WishList(models.Model):
+    product_id = models.IntegerField()
+    
+    def __str__(self):
+        return f'Product ID: {self.product_id}'
     

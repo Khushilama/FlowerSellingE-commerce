@@ -1,124 +1,134 @@
-import React, { useState } from "react";
-import SignUp from "../../../assets/Image/Signup.png";
-import Google from "../../../assets/Image/google.png";
-import Twitter from "../../../assets/Image/twitter.png";
-import SignInHeader from "../../templates/SignInHeader/signInHeader";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import SignInHeader from '../../templates/SignInHeader/signInHeader';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import icons
+import SignUpImage from '../../../assets/Image/Signup.png'; // Import the image
 
 function Signup() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // TODO: Implement sign-up logic
-    console.log("Email:", email);
-    console.log("Password:", password);
+    setError('');
+
+    if (!username || !email || !password || !confirmPassword) {
+      setError('Please fill in all fields.');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+
+    // Store user credentials
+    const userObject = {
+      username: username,
+      email: email,
+      password: password
+    };
+    localStorage.setItem("myObject", JSON.stringify(userObject));
+
+    navigate('/login');
   };
 
   return (
     <>
       <SignInHeader />
-      <div className="flex flex-row items-center justify-center min-h-screen bg-gray-100">
-        <div className="flex w-full max-w-md p-8 rounded-lg h-full">
-          <img
-            src={SignUp}
-            alt="Roses in a vase"
-            className="w-full h-full object-cover rounded-lg"
-          />
+      <div className="flex h-screen">
+        
+        {/* Image Section */}
+        <div className="hidden md:flex w-1/2 h-full items-center justify-center">
+          <img src={SignUpImage} alt="SignUp" className="w-full h-full object-cover" /> {/* Full coverage */}
         </div>
-        <div className="flex w-full h-full max-w-md p-8 bg-white rounded-lg mb-8 ">
-          <form onSubmit={handleSubmit} className="w-full">
-            <h2 className="text-3xl italic font-normal mb-4">Sign Up</h2>
-            <button
-              type="button"
-              className="flex items-center justify-center w-full py-3 mb-4 text-gray-700 bg-white border border-gray-300 rounded-lg transition-colors hover:bg-gray-100"
-            >
-              <img src={Google} alt="Google logo" className="w-6 h-6 mr-2" />
-              Continue With Google
-            </button>
-            <button
-              type="button"
-              className="flex items-center justify-center w-full py-3 mb-4 text-gray-700 bg-white border border-gray-300 rounded-lg transition-colors hover:bg-gray-100"
-            >
-              <img src={Twitter} alt="Twitter logo" className="w-6 h-6 mr-2" />
-              Continue With Twitter
-            </button>
-            <div className="mb-6">
-              <label htmlFor="email" className="block font-semibold mb-2">
-                Email Address
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={handleEmailChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div className="mb-6 relative">
-              <label htmlFor="password" className="block font-semibold mb-2">
-                Password
-              </label>
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                value={password}
-                onChange={handlePasswordChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <span
-                className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer text-sm text-gray-600"
-                onClick={handleShowPassword}
+
+        {/* Signup Section */}
+        <div className="w-full md:w-1/2 h-full flex items-center justify-center bg-gray-100 p-8">
+          <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg mt-16">
+            <form onSubmit={handleSubmit} className="w-full">
+              <h2 className="text-3xl font-bold mb-6 text-center">Sign Up</h2>
+
+              {error && <p className="text-red-600 mb-4">{error}</p>}
+
+              <div className="mb-6">
+                <label htmlFor="username" className="block font-semibold mb-2">Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+              <div className="mb-6">
+                <label htmlFor="email" className="block font-semibold mb-2">Email Address</label>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+              <div className="mb-6 relative">
+                <label htmlFor="password" className="block font-semibold mb-2">Password</label>
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+                <span
+                  className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer text-gray-600"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />} {/* Toggle between icons */}
+                </span>
+              </div>
+              <div className="mb-6 relative">
+                <label htmlFor="confirmPassword" className="block font-semibold mb-2">Confirm Password</label>
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  id="confirmPassword"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+                <span
+                  className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer text-gray-600"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />} {/* Toggle between icons */}
+                </span>
+              </div>
+              <p className="text-xs text-gray-600 mb-6">
+                Use 8 or more characters with a mix of letters, numbers & symbols
+              </p>
+              <button
+                type="submit"
+                className="w-full py-3 text-white font-semibold rounded-lg transition-colors bg-[#8A33FD] hover:bg-[#7a2ce3]"
               >
-                {/* {showPassword ? 'Hide' : 'Show'} */}
-              </span>
-            </div>
-            <p className="text-xs text-gray-600 mb-6">
-              Use 8 or more characters with a mix of letters, numbers & symbols
-            </p>
-            <div className="flex items-center mb-6">
-              <input type="checkbox" id="terms-of-use" className="mr-2" />
-              <label htmlFor="terms-of-use" className="text-sm">
-                Agree to our Terms of use and Privacy Policy
-              </label>
-            </div>
-            <div className="flex items-center mb-6">
-              <input
-                type="checkbox"
-                id="subscribe-newsletter"
-                className="mr-2"
-              />
-              <label htmlFor="subscribe-newsletter" className="text-sm">
-                Subscribe to our monthly newsletter
-              </label>
-            </div>
-            <button
-              type="submit"
-              className="w-full py-3  text-white font-semibold rounded-lg transition-colors bg-[#8A33FD] hover:bg-[#7a2ce3] "
-            >
-              Sign Up
-            </button>
-            <p className="text-center text-sm mt-4">
-              Already have an account?
-              <Link to="/login" className="text-[#8A33FD] hover:underline">
-                Log In
-              </Link>
-            </p>
-          </form>
+                Sign Up
+              </button>
+              <p className="text-center text-sm mt-4">
+                Already have an account?{" "}
+                <Link to="/login" className="text-[#8A33FD] hover:underline">
+                  Log In
+                </Link>
+              </p>
+            </form>
+          </div>
         </div>
       </div>
     </>

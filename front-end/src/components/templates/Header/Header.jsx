@@ -3,14 +3,26 @@ import InputSearch from "../../atoms/InputSearch/InputSearch";
 import { CiHeart } from "react-icons/ci";
 import { LuShoppingCart } from "react-icons/lu";
 import { GoPerson } from "react-icons/go";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom"; // Added useNavigate import
+import { FaBars, FaSignOutAlt } from "react-icons/fa"; // Import missing icons
 
 const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate(); // Initialize navigate
   const [selected, setSelected] = useState(location.pathname);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Use correct state setter
 
   const handleClick = (path) => {
     setSelected(path);
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen); // Corrected the state setter
+  };
+
+  const handleLogout = () => {
+    setIsSidebarOpen(false); // Close the sidebar
+    navigate("/"); // Navigate to homepage
   };
 
   return (
@@ -39,7 +51,7 @@ const Header = () => {
               }`}
             >
               <Link to="/about" onClick={() => handleClick("/about")}>
-                Gifts
+                Video
               </Link>
             </li>
             <li
@@ -77,23 +89,50 @@ const Header = () => {
           </div>
 
           <div>
-            <Link to="/wishlist"> 
+            <Link to="/wishlist">
               <CiHeart size={24} />
             </Link>
           </div>
-         
+
           <div>
-          <Link to="/cart"> 
+            <Link to="/cart">
               <LuShoppingCart size={24} />
             </Link>
           </div>
-          <div>
-            <Link to="/login">
-              <GoPerson size={24} />
-            </Link>
+
+          {/* Menu Icon */}
+          <div className="flex items-center cursor-pointer" onClick={toggleSidebar}>
+            <FaBars size={24} />
           </div>
         </div>
       </div>
+
+      {/* Sidebar */}
+      <div
+        className={`fixed top-0 right-0 h-full w-64 bg-pink-200 p-5 transition-transform duration-300 ease-in-out z-50 ${
+          isSidebarOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex flex-col">
+          <div className="mb-6">
+            <p className="text-xl font-bold">Setting</p>
+          </div>
+          <ul className="space-y-6">
+            <li className="flex items-center space-x-3 cursor-pointer" onClick={handleLogout}>
+              <FaSignOutAlt size={20} />
+              <span className="text-black">Logout</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Overlay */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black opacity-50 z-40"
+          onClick={toggleSidebar}
+        />
+      )}
     </div>
   );
 };

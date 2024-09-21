@@ -3,8 +3,19 @@ import Image1 from '../../../assets/Image/pinnata.jpg';
 import Image2 from '../../../assets/Image/pansy.webp'; 
 import Image3 from '../../../assets/Image/dahlia.jpg'; 
 import { FaArrowDownLong } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const BigSaving = () => {
+  const navigate = useNavigate(); // Initialize useNavigate hook
+
+  const handleShopNowClick = () => {
+    navigate("/flower"); // Navigate to /flower when the button is clicked
+  };
+
+  const handleExploreItemsClick = () => {
+    navigate("/flower"); // Navigate to /flower when the span is clicked
+  };
+
   return (
     <div className="text-start">
       <h1 className="text-3xl font-normal my-8 italic pl-28">Big Save Zone</h1>
@@ -16,12 +27,16 @@ const BigSaving = () => {
             className="w-96 h-96 object-cover rounded-xl"
           />
           <div className="absolute inset-0 flex flex-col items-start justify-center p-6 text-white space-y-2">
-            <span className="text-3xl font-400 italic">Gardenering</span>
+            <span className="text-3xl font-400 italic">Gardening</span>
             <span className="text-3xl font-400 italic">Plants</span>
             <span className="text-sm italic font-ABeeZee">Bloom with us</span>
-            <span className="text-lg font-400 italic font-ABeeZee">UPTO 50% OFF</span>
-            <FaArrowDownLong className='self-auto'/>   
-            <button className="mt-2 px-4 py-2 bg-transparent text-white border border-white rounded-lg">Shop Now</button>
+            <FaArrowDownLong className='self-auto' />   
+            <button 
+              className="mt-2 px-4 py-2 bg-transparent text-white border border-white rounded-lg" 
+              onClick={handleShopNowClick} // Attach the click handler here
+            >
+              Shop Now
+            </button>
           </div>
         </div>
         <div className="relative">
@@ -30,13 +45,17 @@ const BigSaving = () => {
             alt="New Arrival 2"
             className="w-96 h-96 object-cover rounded-xl"
           />
-          <div className="absolute inset-0 flex flex-col items-start justify-center p-6 text-black space-y-2">
-            <span className="text-3xl font-400 italic">Gardenering</span>
+          <div className="absolute inset-0 flex flex-col items-start justify-center p-6 text-white space-y-2">
+            <span className="text-3xl font-400 italic">Gardening</span>
             <span className="text-3xl font-400 italic">Plants</span>
             <span className="text-sm italic font-ABeeZee">Flowers for Every Feeling</span>
-            <span className="text-lg font-400 italic font-ABeeZee">UPTO 50% OFF</span>
             <FaArrowDownLong className='self-auto' />
-            <button className="mt-2 px-4 py-2 bg-transparent text-black border border-black rounded-lg">Shop Now</button>
+            <button 
+              className="mt-2 px-4 py-2 bg-transparent text-white border border-white rounded-lg" 
+              onClick={handleExploreItemsClick} // Attach the click handler here
+            >
+              Shop Now
+            </button>
           </div>
         </div>
         <div className="relative">
@@ -46,12 +65,16 @@ const BigSaving = () => {
             className="w-96 h-96 object-cover rounded-xl"
           />
           <div className="absolute inset-0 flex flex-col items-start justify-center p-6 text-white space-y-2">
-            <span className="text-3xl font-400 italic">Gardenering</span>
+            <span className="text-3xl font-400 italic">Gardening</span>
             <span className="text-3xl font-400 italic">Plants</span>
             <span className="text-sm italic font-ABeeZee">Where Every Petal Tells a Story</span>
-            <span className="text-lg font-400 italic font-ABeeZee">UPTO 50% OFF</span>
             <FaArrowDownLong className='self-auto' />
-            <button className="mt-2 px-4 py-2 bg-transparent text-white border border-white  rounded-lg">Shop Now</button>
+            <button 
+              className="mt-2 px-4 py-2 bg-transparent text-white border border-white rounded-lg" 
+              onClick={handleExploreItemsClick} // Attach the click handler here
+            >
+              Shop Now
+            </button>
           </div>
         </div>
       </div>

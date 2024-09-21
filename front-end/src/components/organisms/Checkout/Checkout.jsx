@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import HeaderContent from '../../page/HeaderContent/HeaderContent';
 import Footer from '../../molecule/Footer/footer';
 import { useNavigate } from 'react-router-dom'; 
+
 function Checkout() {
   const [fullName, setFullName] = useState('');
   const [location, setLocation] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('');
+  const [giftWrap, setGiftWrap] = useState(false); // State for gift wrap option
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
@@ -18,6 +20,7 @@ function Checkout() {
       phone,
       email,
       paymentMethod,
+      giftWrap,
     });
     navigate('/orderconfirmation'); 
   };
@@ -28,10 +31,11 @@ function Checkout() {
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-1 mt-12">Check Out</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4"> {/* Adjust gap here */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
           <div>
             <h2 className="text-xl font-bold mb-2">Billing Details</h2>
             <form onSubmit={handleSubmit}>
+              {/* Billing Details Fields */}
               <div className="mb-4">
                 <label
                   htmlFor="fullName"
@@ -96,41 +100,65 @@ function Checkout() {
                 />
               </div>
 
-              <div className="mb-4">
-                <h2 className="text-xl font-bold mb-2">Payment Method</h2>
-                <div className="flex items-center mb-2">
-                  <input
-                    type="radio"
-                    id="cashOnDelivery"
-                    name="paymentMethod"
-                    value="Cash on Delivery"
-                    checked={paymentMethod === 'Cash on Delivery'}
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                    className="mr-2"
-                  />
-                  <label
-                    htmlFor="cashOnDelivery"
-                    className="text-gray-700 text-sm font-bold"
-                  >
-                    Cash on Delivery
-                  </label>
+              {/* Flexbox for Payment and Gift Wrap */}
+              <div className="mb-4 flex flex-col md:flex-row justify-between items-start">
+                {/* Payment Method */}
+                <div className="md:mr-4">
+                  <h2 className="text-xl font-bold mb-2">Payment Method</h2>
+                  <div className="flex items-center mb-2">
+                    <input
+                      type="radio"
+                      id="cashOnDelivery"
+                      name="paymentMethod"
+                      value="Cash on Delivery"
+                      checked={paymentMethod === 'Cash on Delivery'}
+                      onChange={(e) => setPaymentMethod(e.target.value)}
+                      className="mr-2"
+                    />
+                    <label
+                      htmlFor="cashOnDelivery"
+                      className="text-gray-700 text-sm font-bold"
+                    >
+                      Cash on Delivery
+                    </label>
+                  </div>
+                  <div className="flex items-center">
+                    <input
+                      type="radio"
+                      id="esewa"
+                      name="paymentMethod"
+                      value="E-Sewa"
+                      checked={paymentMethod === 'E-Sewa'}
+                      onChange={(e) => setPaymentMethod(e.target.value)}
+                      className="mr-2"
+                    />
+                    <label
+                      htmlFor="esewa"
+                      className="text-gray-700 text-sm font-bold"
+                    >
+                      E-Sewa
+                    </label>
+                  </div>
                 </div>
-                <div className="flex items-center">
-                  <input
-                    type="radio"
-                    id="esewa"
-                    name="paymentMethod"
-                    value="E-Sewa"
-                    checked={paymentMethod === 'E-Sewa'}
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                    className="mr-2"
-                  />
-                  <label
-                    htmlFor="esewa"
-                    className="text-gray-700 text-sm font-bold"
-                  >
-                    E-Sewa
-                  </label>
+
+                {/* Gift Wrap Option */}
+                <div>
+                  <h2 className="text-xl font-bold mb-2">Additional Options</h2>
+                  <div className="flex items-center mt-2">
+                    <input
+                      type="checkbox"
+                      id="giftWrap"
+                      checked={giftWrap}
+                      onChange={(e) => setGiftWrap(e.target.checked)}
+                      className="mr-2"
+                    />
+                    <label
+                      htmlFor="giftWrap"
+                      className="text-gray-700 text-sm font-bold"
+                    >
+                      Add Gift Wrapping (Rs.50)
+                    </label>
+                  </div>
                 </div>
               </div>
 
@@ -147,6 +175,7 @@ function Checkout() {
             <h2 className="text-xl font-bold mb-2 mt-1">Order Summary</h2>
 
             <div className="border rounded p-4">
+              {/* Product Summary */}
               <div className="border-b border-gray-300 pb-2 mb-2 flex items-center">
                 <img
                   src="https://via.placeholder.com/150"
@@ -156,51 +185,39 @@ function Checkout() {
                 <div className="ml-4 flex flex-col">
                   <span className="font-bold">Yellow Rose</span>
                   <span className="text-gray-500">Color: Yellow</span>
-                  <span className="font-bold">$29.00</span>
+                  <span className="font-bold">Rs.29.00</span>
                 </div>
               </div>
-
-              <div className="border-b border-gray-300 pb-2 mb-2 flex items-center">
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Lotus"
-                  className="w-16 h-16 rounded-full"
-                />
-                <div className="ml-4 flex flex-col">
-                  <span className="font-bold">Lotus</span>
-                  <span className="text-gray-500">Color: Pink</span>
-                  <span className="font-bold">$119.00</span>
-                </div>
-              </div>
-
-              <div className="border-b border-gray-300 pb-2 mb-2 flex items-center">
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="White Flower"
-                  className="w-16 h-16 rounded-full"
-                />
-                <div className="ml-4 flex flex-col">
-                  <span className="font-bold">White Flower</span>
-                  <span className="text-gray-500">Color: White</span>
-                  <span className="font-bold">$123.00</span>
-                </div>
-              </div>
-
-              <div className="border-b border-gray-300 pb-2 mb-2 mt-4">
+              {/* More products */}
+              <div className="border-b border-gray-300 pb-2 mb-2">
                 <span className="font-bold">Subtotal (3 items)</span>
-                <span className="ml-2 font-bold">$513.00</span>
+                <span className="ml-2 font-bold">Rs.513.00</span>
               </div>
+
               <div className="border-b border-gray-300 pb-2 mb-2">
                 <span className="font-bold">Savings</span>
-                <span className="ml-2 font-bold">-$30.00</span>
+                <span className="ml-2 font-bold">-Rs.30.00</span>
               </div>
+
               <div className="border-b border-gray-300 pb-2 mb-2">
                 <span className="font-bold">Shipping</span>
-                <span className="ml-2 font-bold">-$5.00</span>
+                <span className="ml-2 font-bold">-Rs.5.00</span>
               </div>
+
+              {/* Display Gift Wrap Cost if selected */}
+              {giftWrap && (
+                <div className="border-b border-gray-300 pb-2 mb-2">
+                  <span className="font-bold">Gift Wrapping</span>
+                  <span className="ml-2 font-bold">Rs.50.00</span>
+                </div>
+              )}
+
               <div className="border-b border-gray-300 pb-2 mb-2">
                 <span className="font-bold">Total</span>
-                <span className="ml-2 font-bold">$478.00</span>
+                <span className="ml-2 font-bold">
+                  Rs.
+                  {478 + (giftWrap ? 50 : 0)} {/* Add Rs.50 if giftWrap is true */}
+                </span>
               </div>
             </div>
           </div>

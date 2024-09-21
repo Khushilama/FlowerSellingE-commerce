@@ -1,0 +1,302 @@
+[
+    {
+        "id": 28,
+        "product_name": "Rose Bouquet",
+        "price": 450,
+        "image": "/media/product_images/w1_xj73zIb.webp",
+        "product_desc": "The red rose symbolizes love, beauty, and courage, linked to Venus, the planet of love. White roses signify purity and new beginnings, pink represents grace and admiration, and orange expresses passion and enthusiasm.",
+        "types": "Wedding",
+        "categories": "Rose",
+        "color_available": [
+            "red",
+            "yellow",
+            "green",
+            "gray"
+        ],
+        "size": [
+            "M",
+            "S",
+            "L"
+        ]
+    },
+    {
+        "id": 29,
+        "product_name": "Lavender Bouquet",
+        "price": 500,
+        "image": "/media/product_images/w2_ayBnSJF.webp",
+        "product_desc": "Lavender symbolizes love, devotion, and fertility, promoting calm and peace. Traditionally included in Irish wedding bouquets, it's believed to bring happiness and luck to a marriage.",
+        "types": "Wedding",
+        "categories": "Lavender",
+        "color_available": [
+            "red",
+            "yellow",
+            "green",
+            "gray"
+        ],
+        "size": [
+            "M",
+            "S",
+            "L"
+        ]
+    },
+    {
+        "id": 30,
+        "product_name": "Orchid Bouquet",
+        "price": 600,
+        "image": "/media/product_images/w5_OAMmEa9.webp",
+        "product_desc": "Orchids symbolize love, beauty, strength, and luxury, adding a wow factor to any bouquet. In Japan, they represent success and are highly treasured.",
+        "types": "Wedding",
+        "categories": "Orchid",
+        "color_available": [
+            "red",
+            "yellow",
+            "green",
+            "gray"
+        ],
+        "size": [
+            "M",
+            "S",
+            "L"
+        ]
+    },
+    {
+        "id": 31,
+        "product_name": "Baby's Breath (Gypsophilia)",
+        "price": 250,
+        "image": "/media/product_images/w3_bHihGia.webp",
+        "product_desc": "Baby's Breath is an all time favourite addition to wedding bouquets and we can see why! These sweet flowers represents everlasting love which is perfect for a wedding. It's also a great flower for new mothers or mothers to be!",
+        "types": "Wedding",
+        "categories": "Baby's Breath",
+        "color_available": [
+            "red",
+            "yellow",
+            "green",
+            "gray"
+        ],
+        "size": [
+            "M",
+            "S",
+            "L"
+        ]
+    },
+    {
+        "id": 32,
+        "product_name": "Cherry Blossom",
+        "price": 200,
+        "image": "/media/product_images/w4_j6SOpF7.webp",
+        "product_desc": "Cherry blossoms, celebrated for their beauty and femininity, symbolize love, luck, and abundance. They're a lucky choice for brides, especially perfect for a spring wedding.",
+        "types": "Wedding",
+        "categories": "Cherry Blossom",
+        "color_available": [
+            "red",
+            "yellow",
+            "green",
+            "gray"
+        ],
+        "size": [
+            "M",
+            "S",
+            "L"
+        ]
+    },
+    {
+        "id": 33,
+        "product_name": "Gerbera Daisies",
+        "price": 350,
+        "image": "/media/product_images/w6_YbKxiL7.webp",
+        "product_desc": "Gerbera daisies add vibrant color to any bridal bouquet. Yellow symbolizes cheerfulness, red signifies deep love, and pink represents admiration and adoration.",
+        "types": "Wedding",
+        "categories": "Daisy",
+        "color_available": [
+            "red",
+            "yellow",
+            "green",
+            "gray"
+        ],
+        "size": [
+            "M",
+            "S",
+            "L"
+        ]
+    },
+    {
+        "id": 34,
+        "product_name": "Daisy Bouquet",
+        "price": 300,
+        "image": "/media/product_images/w7_iQ1O504.webp",
+        "product_desc": "The daisy symbolizes sweetness, purity, love, and children. Favored by the Norse Goddess Freya, it also represents motherhood, sensuality, and fertility.",
+        "types": "Wedding",
+        "categories": "Daisy",
+        "color_available": [
+            "red",
+            "yellow",
+            "green",
+            "gray"
+        ],
+        "size": [
+            "M",
+            "S",
+            "L"
+        ]
+    },
+    {
+        "id": 35,
+        "product_name": "Chrysanthemum",
+        "price": 400,
+        "image": "/media/product_images/w8_eieAbxR.webp",
+        "product_desc": "Chrysanthemums are perfect for a summer bridal bouquet. Red symbolizes love, white signifies loyalty and devoted love, and in general, they represent happiness, love, longevity, and joy—ideal for a wedding day!",
+        "types": "Wedding",
+        "categories": "Chrysanthemum",
+        "color_available": [
+            "red",
+            "yellow",
+            "green",
+            "gray"
+        ],
+        "size": [
+            "M",
+            "S",
+            "L"
+        ]
+    },
+    {
+        "id": 36,
+        "product_name": "Carnations",
+        "price": 300,
+        "image": "/media/product_images/w9_apgAAsI.webp",
+        "product_desc": "The carnation means fascination, distinction, devotion and love. White carnations symbolise pure love and adoration, while pink carnations say, \"I'll never forget you.\"",
+        "types": "Wedding",
+        "categories": "Carnation",
+        "color_available": [
+            "red",
+            "yellow",
+            "green",
+            "gray"
+        ],
+        "size": [
+            "M",
+            "S",
+            "L"
+        ]
+    },
+    {
+        "id": 37,
+        "product_name": "Lily of the Valley",
+        "price": 200,
+        "image": "/media/product_images/w10_LQ1ViUA.webp",
+        "product_desc": "Lily of the valley have always been a wedding favourite, and with good reason! These sweet little white blossoms represent rebirth, new beginnings and humility. They are also thought to bring luck in love and symbolise a return of happiness.",
+        "types": "Wedding",
+        "categories": "Lily",
+        "color_available": [
+            "red",
+            "yellow",
+            "green",
+            "gray"
+        ],
+        "size": [
+            "M",
+            "S",
+            "L"
+        ]
+    },
+    {
+        "id": 38,
+        "product_name": "Rose",
+        "price": 250,
+        "image": "/media/product_images/3.jpg",
+        "product_desc": "The red rose is a symbol of love and passion, known for its deep crimson petals and elegant, full bloom. Its rich, velvety texture and sweet, slightly spicy fragrance make it a timeless favorite in floral arrangements, conveying emotions of romance and admiration.",
+        "types": "flowers",
+        "categories": "Rose",
+        "color_available": [
+            "red",
+            "yellow",
+            "green",
+            "gray"
+        ],
+        "size": [
+            "M",
+            "S",
+            "L"
+        ]
+    },
+    {
+        "id": 39,
+        "product_name": "Red Lily",
+        "price": 150,
+        "image": "/media/product_images/3.webp",
+        "product_desc": "The red lily (*Lilium*) features large, trumpet-shaped flowers in vibrant red hues, often with a glossy sheen. It has long, lance-shaped green leaves and grows on sturdy stems, reaching 2 to 6 feet tall. Blooming in mid to late summer, it adds a bold splash of color to gardens. Red lilies prefer well-drained soil and sunny spots, and they need regular watering but not waterlogging.",
+        "types": "flowers",
+        "categories": "Lily",
+        "color_available": [
+            "red",
+            "yellow",
+            "green",
+            "gray"
+        ],
+        "size": [
+            "M",
+            "S",
+            "L"
+        ]
+    },
+    {
+        "id": 40,
+        "product_name": "Daisy",
+        "price": 150,
+        "image": "/media/product_images/1_czNq1Y5.jpeg",
+        "product_desc": "The purple daisy (*Osteospermum*) has vibrant purple, daisy-like flowers with a yellow or white center. It features green, lance-shaped leaves and grows about 1 to 2 feet tall. Blooming from spring to fall, it thrives in full sun and well-drained soil.",
+        "types": "flowers",
+        "categories": "Daisy",
+        "color_available": [
+            "red",
+            "yellow",
+            "green",
+            "gray"
+        ],
+        "size": [
+            "M",
+            "S",
+            "L"
+        ]
+    },
+    {
+        "id": 41,
+        "product_name": "Pansy",
+        "price": 200,
+        "image": "/media/product_images/pansy.webp",
+        "product_desc": "The light purple pansy has delicate, heart-shaped petals in a soft lavender shade, often with darker veining or a yellow center. It grows about 6 to 8 inches tall and blooms from early spring to fall. The plant prefers cool weather, well-drained soil, and partial to full sun.",
+        "types": "flowers",
+        "categories": "Pansy",
+        "color_available": [
+            "red",
+            "yellow",
+            "green",
+            "gray"
+        ],
+        "size": [
+            "M",
+            "S",
+            "L"
+        ]
+    },
+    {
+        "id": 42,
+        "product_name": "Pinnata",
+        "price": 250,
+        "image": "/media/product_images/pinnata.jpg",
+        "product_desc": "The Red Pinnata, or *Red Pinnate*, is a plant characterized by its striking red, feather-like leaves or petals. It often features a bushy growth habit and adds vibrant color to gardens or landscapes. The plant prefers sunny locations and well-drained soil.",
+        "types": "flowers",
+        "categories": "Pinnata",
+        "color_available": [
+            "red",
+            "yellow",
+            "green",
+            "gray"
+        ],
+        "size": [
+            "M",
+            "S",
+            "L"
+        ]
+    }
+]

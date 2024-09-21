@@ -8,13 +8,13 @@ function InfluencerSignupPage() {
     email: '',
     socialMediaHandle: '',
     password: '',
-    portfolio: null,
+    picture: null, // Updated field name
   });
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    if (name === 'portfolio') {
-      setFormData({ ...formData, [name]: files[0] });
+    if (name === 'picture') {
+      setFormData({ ...formData, [name]: files[0] }); // Save the image file
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -22,11 +22,9 @@ function InfluencerSignupPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Log form data for now, but you can add form submission logic here.
+    // Log form data for now, including picture
     console.log('Form data submitted:', formData);
-
-    // Add logic to handle form submission, such as sending data to a server
-    // You could use fetch or axios for API calls if needed
+    // Add form submission logic here (e.g., sending data to a server)
   };
 
   return (
@@ -108,18 +106,18 @@ function InfluencerSignupPage() {
               />
             </div>
 
-            {/* Portfolio Upload */}
+            {/* Picture Upload */}
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="portfolio">
-                Upload Your Portfolio (Optional)
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="picture">
+                Upload Your Picture
               </label>
               <input
                 type="file"
-                name="portfolio"
-                id="portfolio"
+                name="picture"
+                id="picture"
                 onChange={handleChange}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                accept=".pdf,.doc,.docx,.png,.jpg" // Restrict to certain file types
+                accept=".png,.jpg,.jpeg" // Restrict to image file types
               />
             </div>
 

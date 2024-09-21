@@ -13,15 +13,16 @@ import ShopNowButton from "../../molecule/FirstContainer/ShopNowButton/shopNow";
 import Footer from "../../molecule/Footer/footer";
 
 const HomePage = () => {
-  const navigate = useNavigate(); // Initialize useNavigate hook
+  const navigate = useNavigate(); 
 
   const handleShopNowClick = () => {
-    navigate("/flower"); // Navigate to /flower when the button is clicked
+    navigate("/flower"); 
   };
 
   const handleExploreItemsClick = () => {
-    navigate("/flower"); // Navigate to /flower when the span is clicked
+    navigate("/flower"); 
   };
+
 
   return (
     <>
@@ -67,7 +68,7 @@ const HomePage = () => {
           <div className="absolute inset-0 flex flex-col items-start justify-center p-10 gap-7 text-white">
             <span className="text-lg font-bold">Low Price</span>
             <span className="text-3xl font-bold italic">Gifts</span>
-            <span className="text-base italic font-bold">Up to 50% Off</span>
+            
             <span
               className="text-sm font-bold italic underline cursor-pointer"
               onClick={handleExploreItemsClick} // Add click handler
@@ -85,7 +86,7 @@ const HomePage = () => {
           <div className="absolute inset-0 flex flex-col items-start justify-center p-10 gap-7 text-white">
             <span className="text-lg font-bold">Beauty and Bloom Presents</span>
             <span className="text-3xl font-bold italic">Blushing Bride Bouquet</span>
-            <span className="text-base italic font-bold">Up to 50% Off</span>
+         
             <span
               className="text-sm font-bold italic underline cursor-pointer"
               onClick={handleExploreItemsClick} // Add click handler

@@ -154,7 +154,7 @@ const ProductDetail = () => {
                   productList.size.map((size, index) => (
                     <button
                       key={index}
-                      className={`bg-gray-200 px-4 py-2 rounded-md ${size === data.size ? 'bg-blue-500 text-white' : ''}`}
+                      className={`bg-gray-300 px-4 py-2 rounded-md ${size === data.size ? 'bg-blue-500 text-purple-300' : ''}`}
                       onClick={() => handleSizeChange(size)}
                     >
                       {size}
@@ -168,12 +168,12 @@ const ProductDetail = () => {
 
             <div className="mb-4">
               <p className="font-medium">Colours Available</p>
-              <div className="flex space-x-2 mt-2">
+              <div className="flex space-x-4 mt-2">
                 {productList?.color_available?.length > 0 ? (
                   productList.color_available.map((color, index) => (
                     <div
                       key={index}
-                      className={`h-4 w-4 rounded-full cursor-pointer ${color === data.color ? 'border-2 border-black' : ''}`}
+                      className={`h-4 w-4 rounded-full cursor-pointer ${color === data.color ? 'border-4 border-black' : ''}`}
                       style={{ backgroundColor: color }}
                       onClick={() => handleColorChange(color)}
                     ></div>
@@ -220,7 +220,7 @@ const ProductDetail = () => {
               <h2 className="text-2xl font-bold mb-2">Description</h2>
               <p className="text-gray-600">{productList?.product_desc || "Loading..."}</p>
             </div>
-
+{/* 
             <div className="mb-4">
               <h2 className="text-2xl font-bold mb-2">Details</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -249,7 +249,7 @@ const ProductDetail = () => {
                   <p className="text-gray-600">Casual</p>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

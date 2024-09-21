@@ -56,7 +56,7 @@ const BlogPage = () => {
               
               <div className="flex justify-between mb-4">
                 <div>
-                  <p className="text-green-500 font-bold">${product.price}</p>
+                  <p className="text-green-500 font-bold">Rs.{product.price}</p>
                   <p className="text-gray-500">{product.categories}</p>
                 </div>
               </div>

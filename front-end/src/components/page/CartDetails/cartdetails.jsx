@@ -171,15 +171,15 @@ function CartDetails() {
         <div className="bg-cream p-4">
           <div className="flex justify-between items-center">
             <h2 className="text-lg font-bold text-gray-800">Sub Total</h2>
-            <span className="text-lg font-bold text-gray-800">${calculateSubtotal().toFixed(2)}</span>
+            <span className="text-lg font-bold text-gray-800">Rs.{calculateSubtotal().toFixed(2)}</span>
           </div>
           <div className="flex justify-between items-center mt-2">
             <h2 className="text-lg font-bold text-gray-800">Shipping</h2>
-            <span className="text-lg font-bold text-gray-800">${calculateShipping().toFixed(2)}</span>
+            <span className="text-lg font-bold text-gray-800">Rs.{calculateShipping().toFixed(2)}</span>
           </div>
           <div className="flex justify-between items-center mt-2 border-t border-gray-300 pt-2">
             <h2 className="text-lg font-bold text-gray-800">Grand Total</h2>
-            <span className="text-lg font-bold text-gray-800">${calculateGrandTotal().toFixed(2)}</span>
+            <span className="text-lg font-bold text-gray-800">Rs.{calculateGrandTotal().toFixed(2)}</span>
           </div>
           <button
             className="bg-purple-500 text-white px-4 py-2 rounded-md mt-4 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:ring-opacity-50"

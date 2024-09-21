@@ -1,0 +1,13 @@
+prefix=D:/Sunway/Fyp/FlowerSellingE-commerce/chatbot/chatbot/Library
+exec_prefix=D:/Sunway/Fyp/FlowerSellingE-commerce/chatbot/chatbot/Library
+libdir=D:/Sunway/Fyp/FlowerSellingE-commerce/chatbot/chatbot/Library/lib
+sharedlibdir=D:/Sunway/Fyp/FlowerSellingE-commerce/chatbot/chatbot/Library/lib
+includedir=D:/Sunway/Fyp/FlowerSellingE-commerce/chatbot/chatbot/Library/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.13
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}

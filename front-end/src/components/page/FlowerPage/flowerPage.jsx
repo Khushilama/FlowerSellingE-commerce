@@ -55,7 +55,7 @@ const FlowerPage = () => {
               </p>
               <div className="flex justify-between ">
                 <div className="text-center">
-                  <p className="text-green-500 font-bold">${product.price}</p>
+                  <p className="text-green-500 font-bold">Rs.{product.price}</p>
                   <p className="text-gray-500">{product.categories}</p>
                 </div>
                 {/* <div>
