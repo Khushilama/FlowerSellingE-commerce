@@ -132,7 +132,7 @@ const ProductDetail = () => {
             <h1 className="text-3xl font-bold mb-4">
               {productList?.product_name || "Loading..."}
             </h1>
-            <div className="flex items-center mb-4">
+            {/* <div className="flex items-center mb-4">
               <div className="flex items-center">
                 <IoStar className="text-yellow-400" />
                 <IoStar className="text-yellow-400" />
@@ -145,7 +145,7 @@ const ProductDetail = () => {
                 <MdOutlineInsertComment className="text-gray-500" />
                 <span className="ml-2 text-gray-500">120 comments</span>
               </div>
-            </div>
+            </div> */}
 
             <div className="mb-4">
               <p className="font-medium">Select Size</p>

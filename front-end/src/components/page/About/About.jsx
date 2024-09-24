@@ -14,11 +14,11 @@ const AboutPage = () => {
   return (
     <>
       <HeaderContent />
-      <VideoPlayer videos={Videos} text={"Flower Treatment"} />
-      <VideoPlayer videos={Video} text={"Flower Treatment"} />
-      <VideoPlayer videos={Roses} text={"Flower Treatment"} />
-      <VideoPlayer videos={Gerberas} text={"Flower Treatment"} />
-      <VideoPlayer videos={Flower} text={"Flower Treatment"} />
+      <VideoPlayer videos={Videos} text={"How to take Care of Baby breath flower?"} />
+      <VideoPlayer videos={Video} text={"How to take care of tulips?"} />
+      <VideoPlayer videos={Roses} text={"How to take care of Rose?"} />
+      <VideoPlayer videos={Gerberas} text={"How to take care of Gerberas flower?"} />
+      <VideoPlayer videos={Flower} text={"How to take care of bundle of Rose?"} />
       <div className="mt-12">
           <Footer/>
         </div>

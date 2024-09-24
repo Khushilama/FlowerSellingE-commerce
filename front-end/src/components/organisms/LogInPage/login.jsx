@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SignInHeader from '../../templates/SignInHeader/signInHeader';
 import { Link, useNavigate } from 'react-router-dom';
 import LoginImage from '../../../assets/Image/Login.png'; // Import the login image
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'; // Import the eye icons
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -79,10 +80,10 @@ function Login() {
                   required
                 />
                 <span
-                  className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer text-sm text-gray-600"
+                  className="absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer text-gray-600"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? 'Hide' : 'Show'}
+                  {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
                 </span>
               </div>
               <button

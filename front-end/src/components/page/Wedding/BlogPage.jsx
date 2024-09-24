@@ -1,19 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import HeaderContent from "../HeaderContent/HeaderContent";
 import axios from "axios";
 import Footer from "../../molecule/Footer/footer";
-import { CiHeart } from "react-icons/ci"; // Importing the heart icon
+import { FaHeart } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { WishlistContext } from "../../organisms/WishlistContext/WishlistProvider";
 
 const BlogPage = () => {
+  const { WishlistItem, setWishlistItem } = useContext(WishlistContext);
   const [productList, setProductList] = useState([]);
-  const [wishlist, setWishlist] = useState([]); // Wishlist state
   const navigate = useNavigate();
 
   const getData = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/productlist/Wedding/");
-      setProductList(response.data); // Adjust this if needed based on API response
+      const response = await axios.get(
+        "http://127.0.0.1:8000/productlist/Wedding/"
+      );
+      setProductList(response.data); 
     } catch (error) {
       console.error("Error fetching product list:", error);
     }
@@ -25,12 +28,12 @@ const BlogPage = () => {
 
   // Function to handle adding/removing items from wishlist
   const handleWishlistClick = (product) => {
-    if (wishlist.some((item) => item.id === product.id)) {
+    if (WishlistItem.some((item) => item.id === product.id)) {
       // If product is already in the wishlist, remove it
-      setWishlist(wishlist.filter((item) => item.id !== product.id));
+      setWishlistItem(WishlistItem.filter((item) => item.id !== product.id));
     } else {
       // If product is not in the wishlist, add it
-      setWishlist([...wishlist, product]);
+      setWishlistItem([...WishlistItem, product]);
     }
   };
 
@@ -47,20 +50,24 @@ const BlogPage = () => {
               onClick={() => navigate(`/productdetail/${product.id}`)}
             >
               <img
-                src={`http://127.0.0.1:8000${product.image}`} // Adjust the URL based on how your server serves media files
+                src={`http://127.0.0.1:8000${product.image}`}
                 alt={product.product_name}
                 className="w-full h-40 object-cover rounded-t-lg mb-4"
               />
-              <h2 className="text-xl font-semibold mb-2">{product.product_name}</h2>
-              <p className="text-gray-700 overflow-auto p-2 mb-4 h-48">{product.product_desc}</p>
-              
+              <h2 className="text-xl font-semibold mb-2">
+                {product.product_name}
+              </h2>
+              <p className="text-gray-700 overflow-auto p-2 mb-4 h-48">
+                {product.product_desc}
+              </p>
+
               <div className="flex justify-between mb-4">
                 <div>
                   <p className="text-green-500 font-bold">Rs.{product.price}</p>
                   <p className="text-gray-500">{product.categories}</p>
                 </div>
               </div>
-              
+
               {/* Heart icon positioned at the bottom */}
               <div
                 className="absolute bottom-10 right-6"
@@ -69,10 +76,10 @@ const BlogPage = () => {
                   handleWishlistClick(product);
                 }}
               >
-                <CiHeart
+                <FaHeart
                   className={`text-2xl cursor-pointer ${
-                    wishlist.some((item) => item.id === product.id)
-                      ? "text-red-500" // Change color if in wishlist
+                    WishlistItem.some((item) => item.id === product.id)
+                      ? "text-red-500"
                       : "text-gray-500"
                   }`}
                 />

@@ -15,6 +15,7 @@ import Cartdetails from './components/page/CartDetails/cartdetails';
 import Checkout from './components/organisms/Checkout/Checkout';
 import OrderConfirmation from './components/organisms/OrderConfirm/Orderconfirm';
 import InfluencerSignupPage from './components/organisms/InfluencerSignUpPage/InfluencerSignUpPage';
+import InfluencerProfile from './components/page/InfluencerProfilePage/InfluencerProfile';
 const AppRoutes = () => {
     return (
         <BrowserRouter>
@@ -34,6 +35,9 @@ const AppRoutes = () => {
                 <Route path='/orderconfirmation' element={<OrderConfirmation />} /> 
                 <Route path='/influencerSignupPage' element={<InfluencerSignupPage/>} />
                 <Route path="/productdetail/:id" element={<ProductDetail/>} />
+                <Route path='/influencerProfile' element={<InfluencerProfile />} />
+
+
             </Routes>
         </BrowserRouter>
     );

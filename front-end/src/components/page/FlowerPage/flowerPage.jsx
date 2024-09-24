@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import HeaderContent from "../HeaderContent/HeaderContent";
 import axios from "axios";
 import Footer from "../../molecule/Footer/footer";
 import BuyButton from "../../atoms/BuyButton/buybutton";
-import { CiHeart } from "react-icons/ci";
+import { FaHeart } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { WishlistContext } from "../../organisms/WishlistContext/WishlistProvider";
+
 const FlowerPage = () => {
   const [productList, setProductList] = useState([]);
   const navigate = useNavigate();
-  
+  const { WishlistItem, setWishlistItem } = useContext(WishlistContext);
 
   const getData = async () => {
     try {
@@ -25,6 +27,17 @@ const FlowerPage = () => {
     getData();
   }, []);
 
+   // Function to handle adding/removing items from wishlist
+   const handleWishlistClick = (product) => {
+    if (WishlistItem.some((item) => item.id === product.id)) {
+      // If product is already in the wishlist, remove it
+      setWishlistItem(WishlistItem.filter((item) => item.id !== product.id));
+    } else {
+      // If product is not in the wishlist, add it
+      setWishlistItem([...WishlistItem, product]);
+    }
+  };
+
   return (
     <>
       <HeaderContent />
@@ -37,15 +50,13 @@ const FlowerPage = () => {
               className="border rounded-lg p-4 shadow-lg bg-white "
               onClick={() => navigate(`/productdetail/${product.id}`)}
             >
-              <div >
-              <img
-                src={`http://127.0.0.1:8000${product.image}`} // Adjust the URL based on how your server serves media files
-                alt={product.product_name}
-                className="w-full h-40 object-cover rounded-t-lg mb-4"
-              />
+              <div>
+                <img
+                  src={`http://127.0.0.1:8000${product.image}`} // Adjust the URL based on how your server serves media files
+                  alt={product.product_name}
+                  className="w-full h-40 object-cover rounded-t-lg mb-4"
+                />
               </div>
-              {/* <div className="absolute top-5 right-5"> <FiShoppingCart size={24} color="white"/></div> */}
-              <div className="absolute bg-white top-5 right-8"> <CiHeart size={24} color="black" /></div>
 
               <h2 className="text-xl font-semibold mb-2 ml-5">
                 {product.product_name}
@@ -53,14 +64,27 @@ const FlowerPage = () => {
               <p className="text-gray-700 overflow-auto p-2 mb-4 h-48 ">
                 {product.product_desc}
               </p>
-              <div className="flex justify-between ">
+              <div className="flex justify-between items-center">
                 <div className="text-center">
                   <p className="text-green-500 font-bold">Rs.{product.price}</p>
                   <p className="text-gray-500">{product.categories}</p>
                 </div>
-                {/* <div>
-                  <BuyButton children={"Buy Now"} />
-                </div> */}
+                {/* Heart icon in the same row as the product price */}
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent triggering navigation on click
+                    handleWishlistClick(product);
+                  }}
+                  className="cursor-pointer"
+                >
+                <FaHeart
+                  className={`text-2xl cursor-pointer ${
+                    WishlistItem.some((item) => item.id === product.id)
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  }`}
+                />
+                </div>
               </div>
             </div>
           ))}

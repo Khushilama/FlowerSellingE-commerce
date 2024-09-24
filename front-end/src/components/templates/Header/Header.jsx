@@ -5,8 +5,13 @@ import { LuShoppingCart } from "react-icons/lu";
 import { GoPerson } from "react-icons/go";
 import { Link, useLocation, useNavigate } from "react-router-dom"; // Added useNavigate import
 import { FaBars, FaSignOutAlt } from "react-icons/fa"; // Import missing icons
-
+import { CartContext } from "../../../context/CartItemProvider";
+import { useContext } from "react";
 const Header = () => {
+  const { cartItem, setCartItem } = useContext(CartContext);
+  console.log(cartItem);
+  console.log(cartItem.length);
+
   const location = useLocation();
   const navigate = useNavigate(); // Initialize navigate
   const [selected, setSelected] = useState(location.pathname);
@@ -26,8 +31,9 @@ const Header = () => {
   };
 
   return (
-    <div className="w-full flex flex-row items-center outline-gray-90000 outline- fixed bg-white h-16 p-8">
-      <div className="text-center px-10">
+    <div className="w-full flex flex-row items-center fixed bg-white h-16 p-8">
+      {/* Add a specific width or use flex-grow to avoid shifting */}
+      <div className="text-center px-10 flex-grow">
         <p className="text-2xl text-black font-semibold underline decoration-inherit">
           BEAUTY & BLOOMS
         </p>
@@ -94,14 +100,22 @@ const Header = () => {
             </Link>
           </div>
 
-          <div>
-            <Link to="/cart">
+          <div className="mb-4">
+           
+            <Link to="/cartdetails">
+            <span className=" ml-4  border-2 ">
+              {cartItem.length}
+            </span>
               <LuShoppingCart size={24} />
             </Link>
+            
           </div>
 
           {/* Menu Icon */}
-          <div className="flex items-center cursor-pointer" onClick={toggleSidebar}>
+          <div
+            className="flex items-center cursor-pointer"
+            onClick={toggleSidebar}
+          >
             <FaBars size={24} />
           </div>
         </div>
@@ -109,7 +123,7 @@ const Header = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-64 bg-pink-200 p-5 transition-transform duration-300 ease-in-out z-50 ${
+        className={`fixed top-0 right-0 h-full w-64 bg-white p-5 transition-transform duration-300 ease-in-out z-50 ${
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -118,7 +132,10 @@ const Header = () => {
             <p className="text-xl font-bold">Setting</p>
           </div>
           <ul className="space-y-6">
-            <li className="flex items-center space-x-3 cursor-pointer" onClick={handleLogout}>
+            <li
+              className="flex items-center space-x-3 cursor-pointer"
+              onClick={handleLogout}
+            >
               <FaSignOutAlt size={20} />
               <span className="text-black">Logout</span>
             </li>
