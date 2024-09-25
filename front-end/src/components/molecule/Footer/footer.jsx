@@ -10,20 +10,16 @@ function Footer() {
             <h2 className="text-2xl font-bold text-gray-200 mb-4 italic">Need Help</h2>
             <ul>
               <li className="mb-2"><a href="#" className="hover:text-gray-400">Contact Us</a></li>
-              <li className="mb-2"><a href="#" className="hover:text-gray-400">Track Order</a></li>
-              <li className="mb-2"><a href="#" className="hover:text-gray-400">Returns & Refunds</a></li>
-              <li className="mb-2"><a href="#" className="hover:text-gray-400">FAQ's</a></li>
-              <li className="mb-2"><a href="#" className="hover:text-gray-400">Career</a></li>
+             
             </ul>
           </div>
           <div className="mb-6 md:mb-0 md:w-1/4">
             <h2 className="text-2xl font-bold text-gray-200 mb-4 italic">Company</h2>
             <ul>
-              <li className="mb-2"><a href="#" className="hover:text-gray-400">About Us</a></li>
-              <li className="mb-2"><a href="#" className="hover:text-gray-400">Gifts</a></li>
-              <li className="mb-2"><a href="#" className="hover:text-gray-400">Flowers</a></li>
-              <li className="mb-2"><a href="#" className="hover:text-gray-400">Events</a></li>
-              <li className="mb-2"><a href="#" className="hover:text-gray-400">Media</a></li>
+              <li className="mb-2"><a href="#" className="hover:text-gray-400">Video</a></li>
+              <li className="mb-2"><a href="#" className="hover:text-gray-400">Wedding</a></li>
+              <li className="mb-2"><a href="#" className="hover:text-gray-400">Flower</a></li>
+              <li className="mb-2"><a href="#" className="hover:text-gray-400">Inflencer</a></li>
             </ul>
           </div>
           <div className="mb-6 md:mb-0 md:w-1/4">

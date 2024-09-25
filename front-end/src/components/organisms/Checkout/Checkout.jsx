@@ -1,36 +1,98 @@
-import React, { useState } from 'react';
-import HeaderContent from '../../page/HeaderContent/HeaderContent';
-import Footer from '../../molecule/Footer/footer';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Daisy from '../../../assets/Image/1.jpeg';
+import Footer from '../../molecule/Footer/footer';
+import HeaderContent from '../../page/HeaderContent/HeaderContent';
 
 function Checkout() {
   const [fullName, setFullName] = useState('');
+  const [cart, setCart] = useState([]);  // Initially set cart to null
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
   const [location, setLocation] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState(''); 
-  const [giftWrap, setGiftWrap] = useState({ name: '', price: 45 }); // Set a default gift wrap price
+  const [paymentMethod, setPaymentMethod] = useState('');
+  const [giftWrap, setGiftWrap] = useState({ name: '', price: 45 });
   const navigate = useNavigate();
+  const locate = useLocation();
+  const { state } = locate;
+  console.log(state)
 
-  const handleSubmit = (event) => {
+  const totalItems = 3;
+  const subtotal = 450;
+  const savings = 0;
+  const shipping = 0;
+  const total = subtotal + giftWrap.price - savings + shipping;
+
+  // Fetch cart data on component mount
+  useEffect(() => {
+    const fetchCartData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/cart/");
+         // Log the cart data
+        setCart(response.data);  // Store the cart data
+        console.log("Cart data fetched:", cart); 
+      } catch (error) {
+        setError("Failed to fetch cart data");
+        console.error("Error fetching cart data:", error);  // Log the error
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCartData();
+  }, []);
+
+  // Ensure that cart_id is updated when the cart data is fetched
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Form submitted:', {
-      fullName,
-      location,
-      phone,
+
+    if (!cart || !cart.id) {
+      setError('Cart data is not loaded properly.');  // Error handling if cart is not loaded
+      return;
+    }
+
+    const orderData = {
+      cart_id: cart.id,  // Use the cart's id
+      full_name: fullName,
       email,
-      paymentMethod,
-      giftWrap,
-    });
-    navigate('/orderconfirmation');
+      location,
+      phone: phone || null,
+    };
+
+    console.log(orderData);
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/order/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Error creating order:', errorData);  // Log the error details
+      } else {
+        const result = await response.json();
+        console.log('Order created successfully:', result);
+        navigate('/orderconfirmation');
+      }
+    } catch (error) {
+      console.error('Error submitting the order:', error);
+    }
   };
 
-  const totalItems = 3; 
-  const subtotal = 450; 
-  const savings = 0; 
-  const shipping = 0; 
-  const total = subtotal + giftWrap.price - savings + shipping; 
+  if (isLoading) {
+    return <p>Loading cart...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
     <>
@@ -42,9 +104,10 @@ function Checkout() {
           <div>
             <h2 className="text-xl font-bold mb-2">Billing Details</h2>
             <form onSubmit={handleSubmit}>
-              {/* Billing Details Fields */}
               <div className="mb-4">
-                <label htmlFor="fullName" className="block text-gray-700 text-sm font-bold mb-2">Full Name*</label>
+                <label htmlFor="fullName" className="block text-gray-700 text-sm font-bold mb-2">
+                  Full Name*
+                </label>
                 <input
                   type="text"
                   id="fullName"
@@ -55,7 +118,9 @@ function Checkout() {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="location" className="block text-gray-700 text-sm font-bold mb-2">Location*</label>
+                <label htmlFor="location" className="block text-gray-700 text-sm font-bold mb-2">
+                  Location*
+                </label>
                 <input
                   type="text"
                   id="location"
@@ -66,7 +131,9 @@ function Checkout() {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="phone" className="block text-gray-700 text-sm font-bold mb-2">Phone*</label>
+                <label htmlFor="phone" className="block text-gray-700 text-sm font-bold mb-2">
+                  Phone*
+                </label>
                 <input
                   type="text"
                   id="phone"
@@ -77,7 +144,9 @@ function Checkout() {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email*</label>
+                <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
+                  Email*
+                </label>
                 <input
                   type="text"
                   id="email"
@@ -87,7 +156,6 @@ function Checkout() {
                 />
               </div>
 
-              {/* Payment Method */}
               <div className="mb-4">
                 <h2 className="text-xl font-bold mb-2">Payment Method</h2>
                 <div className="flex items-center mb-2">
@@ -100,7 +168,9 @@ function Checkout() {
                     onChange={(e) => setPaymentMethod(e.target.value)}
                     className="mr-2"
                   />
-                  <label htmlFor="cashOnDelivery" className="text-gray-700 text-sm font-bold">Cash on Delivery</label>
+                  <label htmlFor="cashOnDelivery" className="text-gray-700 text-sm font-bold">
+                    Cash on Delivery
+                  </label>
                 </div>
               </div>
 
@@ -117,7 +187,6 @@ function Checkout() {
             <h2 className="text-xl font-bold mb-2 mt-1">Order Summary</h2>
 
             <div className="border rounded p-4">
-              {/* Product Summary */}
               <div className="border-b border-gray-300 pb-2 mb-2 flex items-center">
                 <img src={Daisy} alt="Daisy" className="w-16 h-16 rounded-full" />
                 <div className="ml-4 flex flex-col">
@@ -142,7 +211,6 @@ function Checkout() {
                 <span className="ml-2 font-bold">-Rs.{shipping}</span>
               </div>
 
-              {/* Gift Wrapping Summary */}
               <div className="border-b border-gray-300 pb-2 mb-2">
                 <span className="font-bold">Gift Wrapping</span>
                 <span className="ml-2 font-bold">Rs.{giftWrap.price}</span>

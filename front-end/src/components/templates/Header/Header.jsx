@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import InputSearch from "../../atoms/InputSearch/InputSearch";
 import { CiHeart } from "react-icons/ci";
 import { LuShoppingCart } from "react-icons/lu";
-import { GoPerson } from "react-icons/go";
-import { Link, useLocation, useNavigate } from "react-router-dom"; // Added useNavigate import
-import { FaBars, FaSignOutAlt } from "react-icons/fa"; // Import missing icons
+import { Link, useLocation, useNavigate } from "react-router-dom"; 
 import { CartContext } from "../../../context/CartItemProvider";
+import { FaBars, FaSignOutAlt, FaBox } from "react-icons/fa";
 import { useContext } from "react";
+import { CgProfile } from "react-icons/cg";
 const Header = () => {
   const { cartItem, setCartItem } = useContext(CartContext);
   console.log(cartItem);
@@ -28,6 +28,10 @@ const Header = () => {
   const handleLogout = () => {
     setIsSidebarOpen(false); // Close the sidebar
     navigate("/"); // Navigate to homepage
+  };
+  const MyOrders = () => {
+    setIsSidebarOpen(false); // Close the sidebar
+    navigate("/order"); // Navigate to homepage
   };
 
   return (
@@ -131,7 +135,16 @@ const Header = () => {
           <div className="mb-6">
             <p className="text-xl font-bold">Setting</p>
           </div>
-          <ul className="space-y-6">
+          <ul className="space-y-6 ">
+            <li
+              className="flex items-center space-x-3 cursor-pointer"
+             
+            >
+              <CgProfile size={20} />
+              <span className="text-black">Profile</span>
+            </li>
+          </ul>
+          <ul className="space-y-6 mt-2" >
             <li
               className="flex items-center space-x-3 cursor-pointer"
               onClick={handleLogout}
@@ -140,6 +153,13 @@ const Header = () => {
               <span className="text-black">Logout</span>
             </li>
           </ul>
+          <ul className="space-y-6 mt-3">
+            <li className="flex items-center space-x-3" onClick={MyOrders}>
+              <FaBox size={20} /> {/* Order Icon */}
+              <span className="text-black">Order</span>
+            </li>
+          </ul>
+
         </div>
       </div>
 

@@ -1,5 +1,7 @@
 setup.py
 happybot/__init__.py
+happybot/data_generation.py
+happybot/data_ingest.py
 happybot/dataconvertert.py
 happybot.egg-info/PKG-INFO
 happybot.egg-info/SOURCES.txt

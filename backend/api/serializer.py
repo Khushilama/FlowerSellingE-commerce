@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import AddtoCart
+from .models import AddtoCart, Order
 class ProductListserializers(serializers.Serializer):
     id = serializers.IntegerField()
     product_name = serializers.CharField(max_length=255)
@@ -27,5 +27,10 @@ class ProductListserializers(serializers.Serializer):
 class AddtoCartSerializer(serializers.ModelSerializer):
     class Meta:
         model = AddtoCart
+        fields = '__all__'
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
         fields = '__all__'
 

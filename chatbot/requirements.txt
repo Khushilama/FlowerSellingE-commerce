@@ -7,5 +7,6 @@ flask
 langchain-astradb
 datasets
 ipykernel
+flask-cors
 
 -e .

@@ -54,3 +54,16 @@ class WishList(models.Model):
     def __str__(self):
         return f'Product ID: {self.product_id}'
     
+
+class Order(models.Model):
+    cart_id = models.IntegerField()  # Assuming this is a foreign key to another model like Cart
+    full_name = models.CharField(max_length=25)
+    email = models.EmailField(max_length=50)
+    location = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15)  # Use CharField to store phone numbers as strings
+    
+    def __str__(self):
+        return f"Order {self.id} by {self.full_name}"
+
+
+    

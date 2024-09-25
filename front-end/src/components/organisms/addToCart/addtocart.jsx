@@ -5,6 +5,7 @@ import Footer from "../../molecule/Footer/footer";
 import { useNavigate } from 'react-router-dom';
 function CartEmpty() {
   const navigate = useNavigate();
+
   return (
     <>
       <HeaderContent /> 

@@ -14,7 +14,7 @@ import { CartContext } from "../../../context/CartItemProvider";
 
 
 function CartDetails() {
-  const {cartItem, setCartItem  }=useContext(CartContext)
+  const {cartItem, setCartItem  }=useContext(CartContext) 
 
   console.log(cartItem)
 
@@ -210,7 +210,7 @@ function CartDetails() {
             <h2 className="text-lg font-bold text-gray-800">Grand Total</h2>
             <span className="text-lg font-bold text-gray-800">Rs.{calculateGrandTotal().toFixed(2)}</span>
           </div>
-          <button className="bg-purple-500 text-white px-4 py-2 rounded-md mt-4 hover:bg-purple-600" onClick={() => navigate("/checkout")}>
+          <button className="bg-purple-500 text-white px-4 py-2 rounded-md mt-4 hover:bg-purple-600" onClick={() => navigate("/checkout", { state: {cart,productList}  })}>
             Proceed To Checkout
           </button>
         </div>

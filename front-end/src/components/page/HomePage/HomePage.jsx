@@ -14,10 +14,20 @@ import Footer from "../../molecule/Footer/footer";
 import { BsChatDots } from "react-icons/bs"; // Import the chatbot icon
 import axios from "axios"; // Import axios for API calls
 import { CiHeart } from "react-icons/ci"; // Heart icon
+import Chatbot from "../../organisms/chatbot-popupmodal/chatbot"; // Correct import for default export
 
 const HomePage = () => {
   const [productList, setProductList] = useState([]);
+  const [openChat, setOpenChat] = useState(false);
   const navigate = useNavigate(); 
+
+  const handleChat = () => {
+    setOpenChat(true);
+  };
+
+  const handleCloseChat = () => {
+    setOpenChat(false);
+  };
 
   // Fetch product data
   useEffect(() => {
@@ -135,10 +145,13 @@ const HomePage = () => {
       </div>
 
       {/* Chatbot Icon at the bottom-right with text */}
-      <div className="fixed bottom-8 right-8 flex flex-col items-center cursor-pointer">
+      <div className="fixed bottom-8 right-8 flex flex-col items-center cursor-pointer" onClick={handleChat}>
         <BsChatDots size={50} className="text-purple-500" />
         <span className="mt-2 text-gray-700 text-sm">Chat with us!</span>
       </div>
+      {openChat && (
+        <Chatbot onClose={handleCloseChat} />  // Pass close function as a prop
+      )}
     </>
   );
 };
