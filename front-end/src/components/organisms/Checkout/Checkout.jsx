@@ -7,62 +7,117 @@ import HeaderContent from '../../page/HeaderContent/HeaderContent';
 
 function Checkout() {
   const [fullName, setFullName] = useState('');
-  const [cart, setCart] = useState([]);  // Initially set cart to null
+  const [cart, setCart] = useState([]); // Initialize cart as an empty array
+  const [productList, setProductList] = useState([]);
+  const [productNames, setProductNames] = useState('');  // State for product names
+  const [productPrices, setProductPrices] = useState(''); // State for product prices
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [location, setLocation] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('');
-  const [giftWrap, setGiftWrap] = useState({ name: '', price: 45 });
   const navigate = useNavigate();
   const locate = useLocation();
+  const [image, setImage] = useState(Daisy);
   const { state } = locate;
-  console.log(state)
 
-  const totalItems = 3;
-  const subtotal = 450;
   const savings = 0;
   const shipping = 0;
-  const total = subtotal + giftWrap.price - savings + shipping;
 
   // Fetch cart data on component mount
   useEffect(() => {
     const fetchCartData = async () => {
       try {
         const response = await axios.get("http://localhost:8000/cart/");
-         // Log the cart data
-        setCart(response.data);  // Store the cart data
-        console.log("Cart data fetched:", cart); 
+        setCart(response.data); // Store the cart data
       } catch (error) {
         setError("Failed to fetch cart data");
-        console.error("Error fetching cart data:", error);  // Log the error
       } finally {
         setIsLoading(false);
       }
     };
-
     fetchCartData();
   }, []);
 
-  // Ensure that cart_id is updated when the cart data is fetched
+  const removeFromCart = async () => {
+    try {
+      // Remove all items from the cart
+      await Promise.all(cart.map(item =>
+        axios.delete(`http://localhost:8000/cart/${item.id}/`)
+      ));
+      setCart([]); // Clear local cart state
+    } catch (error) {
+      setError("Failed to remove items from cart");
+    }
+  };
+
+  useEffect(() => {
+    const fetchProductDetails = async () => {
+      try {
+        if (cart.length > 0) {
+          const productRequests = cart.map((item) =>
+            axios.get(`http://127.0.0.1:8000/productlist/${item.product_id}/`)
+          );
+          const responses = await Promise.all(productRequests);
+          const products = responses.map((response) => response.data);
+          setProductList(products);
+
+          // Set product names and prices
+          const names = products.map(product => product.product_name).join(', ');
+          const prices = products.map(product => product.price).join(', ');
+          setImage(products[0].image);
+          setProductNames(names);
+          setProductPrices(prices);
+        }
+      } catch (error) {
+        console.error("Error fetching product details:", error);
+      }
+    };
+
+    if (cart.length > 0) {
+      fetchProductDetails();
+    }
+  }, [cart]);
+
+  // Calculate subtotal and total items
+  const calculateTotals = () => {
+    let subtotal = 0;
+    let totalItems = 0;
+    let giftWrap = 0;
+
+    cart.forEach(item => {
+      const product = productList.find(p => p.id === item.product_id);
+      if (product) {
+        subtotal += product.price * item.quantity + item.gift_wrap_price;
+        totalItems += item.quantity; // Count total items
+        giftWrap += item.gift_wrap_price;
+      }
+    });
+
+    return { subtotal, totalItems , giftWrap};
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!cart || !cart.id) {
-      setError('Cart data is not loaded properly.');  // Error handling if cart is not loaded
+    if (cart.length === 0 || !cart[0].product_id) {
+      setError('Cart data is not loaded properly.');
       return;
     }
 
+    const product_ids = cart.map(item => item.product_id).toString();  // Collect all product_id from the cart
+    
+    const { subtotal } = calculateTotals(); // Get subtotal for the order
+
     const orderData = {
-      cart_id: cart.id,  // Use the cart's id
+      product_id: product_ids,  // Store the array of product_ids
       full_name: fullName,
       email,
       location,
       phone: phone || null,
+      subtotal,  // Use calculated subtotal
     };
-
-    console.log(orderData);
 
     try {
       const response = await fetch('http://127.0.0.1:8000/order/', {
@@ -73,13 +128,22 @@ function Checkout() {
         body: JSON.stringify(orderData),
       });
 
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.indexOf('application/json') === -1) {
+        console.error('Expected JSON, but got:', contentType);
+        const text = await response.text();
+        console.error('Response body:', text);
+        return;
+      }
+
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('Error creating order:', errorData);  // Log the error details
+        console.error('Error creating order:', errorData);
       } else {
         const result = await response.json();
         console.log('Order created successfully:', result);
         navigate('/orderconfirmation');
+        removeFromCart(); // Remove all items after successful order submission
       }
     } catch (error) {
       console.error('Error submitting the order:', error);
@@ -94,6 +158,16 @@ function Checkout() {
     return <p>{error}</p>;
   }
 
+  const { subtotal, totalItems, giftWrap } = calculateTotals();  // Get subtotal and item count for the order summary
+
+  function toTitleCase(str) {
+    return str
+      .toLowerCase() // Convert the entire string to lowercase first
+      .split(' ') // Split the string into words
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize first letter of each word
+      .join(' '); // Join the words back into a single string
+  }
+
   return (
     <>
       <HeaderContent />
@@ -104,6 +178,7 @@ function Checkout() {
           <div>
             <h2 className="text-xl font-bold mb-2">Billing Details</h2>
             <form onSubmit={handleSubmit}>
+              {/* Full Name */}
               <div className="mb-4">
                 <label htmlFor="fullName" className="block text-gray-700 text-sm font-bold mb-2">
                   Full Name*
@@ -117,6 +192,7 @@ function Checkout() {
                 />
               </div>
 
+              {/* Location */}
               <div className="mb-4">
                 <label htmlFor="location" className="block text-gray-700 text-sm font-bold mb-2">
                   Location*
@@ -128,12 +204,13 @@ function Checkout() {
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                 />
-              </div>
+              </div> 
 
+              {/* Phone */}
               <div className="mb-4">
                 <label htmlFor="phone" className="block text-gray-700 text-sm font-bold mb-2">
                   Phone*
-                </label>
+                </label> 
                 <input
                   type="text"
                   id="phone"
@@ -143,6 +220,7 @@ function Checkout() {
                 />
               </div>
 
+              {/* Email */}
               <div className="mb-4">
                 <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
                   Email*
@@ -156,6 +234,7 @@ function Checkout() {
                 />
               </div>
 
+              {/* Payment Method */}
               <div className="mb-4">
                 <h2 className="text-xl font-bold mb-2">Payment Method</h2>
                 <div className="flex items-center mb-2">
@@ -186,47 +265,45 @@ function Checkout() {
           <div>
             <h2 className="text-xl font-bold mb-2 mt-1">Order Summary</h2>
 
-            <div className="border rounded p-4">
-              <div className="border-b border-gray-300 pb-2 mb-2 flex items-center">
-                <img src={Daisy} alt="Daisy" className="w-16 h-16 rounded-full" />
-                <div className="ml-4 flex flex-col">
-                  <span className="font-bold">Daisy</span>
-                  <span className="text-gray-500">Color: Yellow</span>
-                  <span className="font-bold">Rs.150</span>
-                </div>
-              </div>
+            <div className="border border-gray-300 p-4 rounded">
+              {cart.length > 0 && (
+                <>
+                  {productList.map((product, index) => {
+                    const cartItem = cart[index];
+                    return (
+                      <div key={product.id} className="flex items-center mb-4">
+                        <img
+                          src={`http://127.0.0.1:8000${product.image}` || Daisy}
+                          alt={product.product_name}
+                          className="w-16 h-16 object-cover mr-4"
+                        />
+                        <div className='flex justify-between flex-1'>
+                          <div >
+                          <h3 className="text-lg font-semibold">{product.product_name}</h3>
+                          <p className="text-sm text-gray-600">Color: {toTitleCase(cartItem.color)}</p>
+                          </div>
+                          <div>
+                          <p className="text-sm text-gray-600">Price: Rs.{product.price}</p>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    );
+                  })}
 
-              <div className="border-b border-gray-300 pb-2 mb-2">
-                <span className="font-bold">Subtotal ({totalItems} items)</span>
-                <span className="ml-2 font-bold">Rs.{subtotal}</span>
-              </div>
-
-              <div className="border-b border-gray-300 pb-2 mb-2">
-                <span className="font-bold">Savings</span>
-                <span className="ml-2 font-bold">-Rs.{savings}</span>
-              </div>
-
-              <div className="border-b border-gray-300 pb-2 mb-2">
-                <span className="font-bold">Shipping</span>
-                <span className="ml-2 font-bold">-Rs.{shipping}</span>
-              </div>
-
-              <div className="border-b border-gray-300 pb-2 mb-2">
-                <span className="font-bold">Gift Wrapping</span>
-                <span className="ml-2 font-bold">Rs.{giftWrap.price}</span>
-              </div>
-
-              <div className="border-b border-gray-300 pb-2 mb-2">
-                <span className="font-bold">Total</span>
-                <span className="ml-2 font-bold">Rs.{total}</span>
-              </div>
+                  <hr className="my-4" />
+                  <p className="text-lg font-bold">Subtotal ({totalItems} items): Rs.{subtotal}</p>
+                  <p className="text-lg font-bold">Savings: Rs.{savings}</p>
+                  <p className="text-lg font-bold">Shipping: Rs.{shipping}</p>
+                  <p className="text-lg font-bold">Wrapping: Rs.{giftWrap}</p>
+                  <p className="text-lg font-bold">Total: Rs.{subtotal}</p>
+                </>
+              )}
             </div>
           </div>
         </div>
       </div>
-      <div className="mt-12">
-        <Footer />
-      </div>
+      <Footer />
     </>
   );
 }
