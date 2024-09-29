@@ -59,6 +59,7 @@ function Signup() {
               <div className="mb-6">
                 <label htmlFor="username" className="block font-semibold mb-2">Username</label>
                 <input
+                
                   type="text"
                   id="username"
                   value={username}
