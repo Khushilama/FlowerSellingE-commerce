@@ -8,34 +8,59 @@ function Signup() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirm_password, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
+
     event.preventDefault();
-    setError('');
+    console.log("Hello");
 
-    if (!username || !email || !password || !confirmPassword) {
-      setError('Please fill in all fields.');
-      return;
+    const postData=await fetch("http://127.0.0.1:8000/instagram/signup/",{
+      method:"POST",
+      headers:{
+        "Content-type":"Application/json"
+
+      },
+      body:JSON.stringify({username,email,password,confirm_password})
+
+    })
+    const res=await postData.json()
+    console.log(res);
+
+    if(res){
+      alert("Register seccess")
+         navigate('/login');
+
+
     }
 
-    if (password !== confirmPassword) {
-      setError('Passwords do not match.');
-      return;
-    }
+    
 
-    // Store user credentials
-    const userObject = {
-      username: username,
-      email: email,
-      password: password
-    };
-    localStorage.setItem("myObject", JSON.stringify(userObject));
 
-    navigate('/login');
+    // setError('');
+
+    // if (!username || !email || !password || !confirmPassword) {
+    //   setError('Please fill in all fields.');
+    //   return;
+    // }
+
+    // if (password !== confirmPassword) {
+    //   setError('Passwords do not match.');
+    //   return;
+    // }
+
+    // // Store user credentials
+    // const userObject = {
+    //   username: username,
+    //   email: email,
+    //   password: password
+    // };
+    // localStorage.setItem("myObject", JSON.stringify(userObject));
+
+    // navigate('/login');
   };
 
   return (
@@ -97,11 +122,11 @@ function Signup() {
                 </span>
               </div>
               <div className="mb-6 relative">
-                <label htmlFor="confirmPassword" className="block font-semibold mb-2">Confirm Password</label>
+                <label htmlFor="confirm_password" className="block font-semibold mb-2">Confirm Password</label>
                 <input
                   type={showPassword ? 'text' : 'password'}
-                  id="confirmPassword"
-                  value={confirmPassword}
+                  id="confirm_password"
+                  value={confirm_password}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required

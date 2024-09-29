@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import InputSearch from "../../atoms/InputSearch/InputSearch";
 import { CiHeart } from "react-icons/ci";
 import { LuShoppingCart } from "react-icons/lu";
-import { Link, useLocation, useNavigate } from "react-router-dom"; 
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { CartContext } from "../../../context/CartItemProvider";
 import { FaBars, FaSignOutAlt, FaBox } from "react-icons/fa";
 import { useContext } from "react";
@@ -26,8 +26,9 @@ const Header = () => {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("token")
     setIsSidebarOpen(false); // Close the sidebar
-    navigate("/"); // Navigate to homepage
+    navigate("/login"); // Navigate to homepage
   };
   const MyOrders = () => {
     setIsSidebarOpen(false); // Close the sidebar
@@ -105,14 +106,10 @@ const Header = () => {
           </div>
 
           <div className="mb-4">
-           
             <Link to="/cartdetails">
-            <span className=" ml-4  border-2 ">
-              {cartItem.length}
-            </span>
+              <span className=" ml-4  border-2 ">{cartItem.length}</span>
               <LuShoppingCart size={24} />
             </Link>
-            
           </div>
 
           {/* Menu Icon */}
@@ -136,21 +133,17 @@ const Header = () => {
             <p className="text-xl font-bold">Setting</p>
           </div>
           <ul className="space-y-6 ">
-            <li
-              className="flex items-center space-x-3 cursor-pointer"
-             
-            >
+            <li className="flex items-center space-x-3 cursor-pointer">
               <CgProfile size={20} />
               <span className="text-black">Profile</span>
             </li>
           </ul>
-          <ul className="space-y-6 mt-2" >
-            <li
-              className="flex items-center space-x-3 cursor-pointer"
-              onClick={handleLogout}
-            >
+          <ul className="space-y-6 mt-2">
+            <li className="flex items-center space-x-3 cursor-pointer">
               <FaSignOutAlt size={20} />
-              <span className="text-black">Logout</span>
+              <button onClick={handleLogout} className="text-black">
+                Logout
+              </button>
             </li>
           </ul>
           <ul className="space-y-6 mt-3">
@@ -159,7 +152,6 @@ const Header = () => {
               <span className="text-black">Order</span>
             </li>
           </ul>
-
         </div>
       </div>
 

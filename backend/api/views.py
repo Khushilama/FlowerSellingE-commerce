@@ -16,35 +16,68 @@ import instaloader  # Added Instaloader import
 
 
 # User Authentication Views
-def signup_view(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('dashboard')
-    else:
-        initial_data = {'fullname': '', 'email': '', 'password1': '', 'password2': ""}
-        form = UserCreationForm(initial=initial_data)
-    return render(request, 'front-end/src/components/organisms/SignUp/signup.jsx', {'form': form})
+# def signup_view(request):
+#     if request.method == 'POST':
+#         form = UserCreationForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             login(request, user)
+#             return redirect('dashboard')
+#     else:
+#         initial_data = {'fullname': '', 'email': '', 'password1': '', 'password2': ""}
+#         form = UserCreationForm(initial=initial_data)
+#     return render(request, 'front-end/src/components/organisms/SignUp/signup.jsx', {'form': form})
 
 
-def login_view(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('homepage')
-    else:
-        initial_data = {'email': '', 'password': ''}
-        form = AuthenticationForm(initial=initial_data)
-    return render(request, 'front-end/src/components/organisms/LogInPage/login.jsx', {'form': form})
+# def login_view(request):
+#     if request.method == 'POST':
+#         form = AuthenticationForm(request, data=request.POST)
+#         if form.is_valid():
+#             user = form.get_user()
+#             login(request, user)
+#             return redirect('homepage')
+#     else:
+#         initial_data = {'email': '', 'password': ''}
+#         form = AuthenticationForm(initial=initial_data)
+#     return render(request, 'front-end/src/components/organisms/LogInPage/login.jsx', {'form': form})
 
 
 def logout_view(request):
     logout(request)
     return redirect('login')
+from rest_framework import generics, status
+from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
+from .serializer import LoginSerializer
+
+class LoginAPIView(generics.CreateAPIView):
+    """
+    API view to handle user login and return JWT tokens upon successful authentication.
+    """
+    serializer_class = LoginSerializer
+
+    def create(self, request, *args, **kwargs):
+        """
+        Overriding the create method to handle the response after user authentication.
+        """
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        token_data = serializer.save()
+        return Response(token_data, status=status.HTTP_200_OK)
+
+
+# class LogoutAPIView(generics.GenericAPIView):
+#     """
+#     API view to handle user logout by blacklisting the refresh token.
+#     """
+#     def post(self, request, *args, **kwargs):
+#         try:
+#             refresh_token = request.data.get("refresh_token")
+#             token = RefreshToken(refresh_token)
+#             token.blacklist()
+#             return Response(status=status.HTTP_205_RESET_CONTENT)
+#         except Exception as e:
+#             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 # Product and Order APIs
@@ -136,3 +169,11 @@ class InstagramFollowersScraperView(APIView):
             return Response({'error': f"Profile '{influencer_username}' not found"}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+# views.py
+from rest_framework import generics
+from .serializer import UserSignupSerializer
+from django.contrib.auth.models import User
+
+class SignupView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSignupSerializer

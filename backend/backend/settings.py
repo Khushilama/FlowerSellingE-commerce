@@ -42,9 +42,15 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',  # Ensure you include this for token authentication
     'api',
-    'corsheaders'
+    'corsheaders',
+    
+    'rest_framework_simplejwt.token_blacklist',
 ]
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend'
 ]
@@ -93,6 +99,12 @@ DATABASES = {
         'PORT': os.environ.get('DB_PORT', '3306'),  
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
