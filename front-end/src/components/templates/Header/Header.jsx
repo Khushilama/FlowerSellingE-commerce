@@ -146,12 +146,12 @@ const Header = () => {
               </button>
             </li>
           </ul>
-          <ul className="space-y-6 mt-3">
+          {/* <ul className="space-y-6 mt-3">
             <li className="flex items-center space-x-3" onClick={MyOrders}>
-              <FaBox size={20} /> {/* Order Icon */}
+              <FaBox size={20} /> 
               <span className="text-black">Order</span>
             </li>
-          </ul>
+          </ul> */}
         </div>
       </div>
 

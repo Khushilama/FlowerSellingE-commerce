@@ -26,7 +26,7 @@ function Login() {
 
     if (res) {
       localStorage.setItem("token",JSON.stringify(res));
-      alert("login seccess");
+      alert("login success");
       navigate("/home");
     }else{
       alert("Not Login");

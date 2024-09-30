@@ -31,7 +31,7 @@ function Signup() {
     console.log(res);
 
     if(res){
-      alert("Register seccess")
+      alert("Register success")
          navigate('/login');
 
 
