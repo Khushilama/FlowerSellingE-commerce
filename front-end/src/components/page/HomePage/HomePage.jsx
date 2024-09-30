@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; 
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import HeaderContent from "../HeaderContent/HeaderContent";
 import Home from "../../../assets/Image/Home.jpg";
 import Home1 from "../../../assets/Image/1.jpeg";
@@ -9,17 +9,20 @@ import Pinnata from "../../../assets/Image/pinnata.jpg";
 import { Carousel } from "@material-tailwind/react";
 import NewArrivals from "../../molecule/NewArrivals/newarrivals";
 import BigSaving from "../../molecule/BigSavingZone/bigsaving";
-import ShopNowButton from "../../molecule/FirstContainer/ShopNowButton/shopNow"; 
+import ShopNowButton from "../../molecule/FirstContainer/ShopNowButton/shopNow";
 import Footer from "../../molecule/Footer/footer";
-import { BsChatDots } from "react-icons/bs"; // Import the chatbot icon
-import axios from "axios"; // Import axios for API calls
-import { CiHeart } from "react-icons/ci"; // Heart icon
-import Chatbot from "../../organisms/chatbot-popupmodal/chatbot"; // Correct import for default export
+import { BsChatDots } from "react-icons/bs";
+import axios from "axios";
+import { CiHeart } from "react-icons/ci";
+import Chatbot from "../../organisms/chatbot-popupmodal/chatbot";
+import { WishlistContext } from "../../organisms/WishlistContext/WishlistProvider"; // Import the WishlistContext
 
 const HomePage = () => {
   const [productList, setProductList] = useState([]);
+  const [likedProductList, setLikedProductList] = useState([]);
   const [openChat, setOpenChat] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const { WishlistItem } = useContext(WishlistContext); // Accessing the liked products from context
 
   const handleChat = () => {
     setOpenChat(true);
@@ -29,28 +32,32 @@ const HomePage = () => {
     setOpenChat(false);
   };
 
-  // Fetch product data
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/productlist/flowers/"
-        );
-        setProductList(response.data); // Adjust this based on API response
+        const response = await axios.get("http://127.0.0.1:8000/productlist/flowers/");
+        setProductList(response.data);
       } catch (error) {
         console.error("Error fetching product list:", error);
       }
     };
-
     getData();
   }, []);
 
+  // Filter liked products from the context
+  useEffect(() => {
+    const likedProducts = productList.filter((product) =>
+      WishlistItem.some((item) => item.id === product.id)
+    );
+    setLikedProductList(likedProducts);
+  }, [productList, WishlistItem]);
+
   const handleShopNowClick = () => {
-    navigate("/flower"); 
+    navigate("/flower");
   };
 
   const handleExploreItemsClick = () => {
-    navigate("/flower"); 
+    navigate("/flower");
   };
 
   return (
@@ -58,7 +65,7 @@ const HomePage = () => {
       <HeaderContent />
       <Carousel className="h-[38rem]">
         <div className="relative h-full w-full">
-          <img src={Home} alt="image 1" className="h-full w-full object-cover" />
+          <img src={Home} alt="Home Image" className="h-full w-full object-cover" />
           <div className="absolute inset-0 flex flex-col items-start justify-center p-20 space-y-3">
             <h1 className="text-white text-2xl font-bold">Flowers / Gifts</h1>
             <div>
@@ -69,16 +76,16 @@ const HomePage = () => {
           </div>
         </div>
         <div className="relative h-full w-full">
-          <img src={Home1} alt="image 2" className="h-full w-full object-cover" />
+          <img src={Home1} alt="Home Image" className="h-full w-full object-cover" />
         </div>
         <div className="relative h-full w-full">
-          <img src={Home2} alt="image 3" className="h-full w-full object-cover" />
+          <img src={Home2} alt="Home Image" className="h-full w-full object-cover" />
         </div>
       </Carousel>
 
       <div className="flex justify-center mt-32 space-x-4">
         <div className="relative">
-          <img src={Pansy} alt="additional image" className="h-[356px] w-[605px] object-cover rounded-xl" />
+          <img src={Pansy} alt="Low Price Gifts" className="h-[356px] w-[605px] object-cover rounded-xl" />
           <div className="absolute inset-0 flex flex-col items-start justify-center p-10 gap-7 text-white">
             <span className="text-lg font-bold">Low Price</span>
             <span className="text-3xl font-bold italic">Gifts</span>
@@ -88,7 +95,7 @@ const HomePage = () => {
           </div>
         </div>
         <div className="relative">
-          <img src={Pinnata} alt="additional image" className="h-[356px] w-[605px] object-cover rounded-xl" />
+          <img src={Pinnata} alt="Blushing Bride Bouquet" className="h-[356px] w-[605px] object-cover rounded-xl" />
           <div className="absolute inset-0 flex flex-col items-start justify-center p-10 gap-7 text-white">
             <span className="text-lg font-bold">Beauty and Bloom Presents</span>
             <span className="text-3xl font-bold italic">Blushing Bride Bouquet</span>
@@ -99,11 +106,11 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Highly Recommended Products Section */}
-      <div className="mt-32 px-4"> {/* Added padding on left and right */}
-        <h2 className="text-2xl font-bold text-center mb-8">Highly Recommended Products</h2>
+      {/* Highly Recommended Products by Influencers Section */}
+      <div className="mt-32 px-4">
+        <h2 className="text-2xl font-bold text-center mb-8">Most Recommended Products</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {productList.map((product) => (
+          {likedProductList.map((product) => (
             <div
               key={product.id}
               className="border rounded-lg p-4 shadow-lg bg-white cursor-pointer"
@@ -150,7 +157,7 @@ const HomePage = () => {
         <span className="mt-2 text-gray-700 text-sm">Chat with us!</span>
       </div>
       {openChat && (
-        <Chatbot onClose={handleCloseChat} />  // Pass close function as a prop
+        <Chatbot onClose={handleCloseChat} />
       )}
     </>
   );

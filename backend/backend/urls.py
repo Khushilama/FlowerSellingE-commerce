@@ -9,6 +9,7 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register(r'cart', views.AddtoCartViewSet)
 router.register(r'order', views.OrderViewSet)
+router.register(r'influencer',views.InfluencerViewSet, basename='influencer')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('productlist/', views.product_list_data, name='product-list-all'),
@@ -16,6 +17,7 @@ urlpatterns = [
     path('productlist/<str:types>/', views.product_list, name='product-list'),
     path('', include(router.urls)),  # This will include all CRUD routes for 'cart'
     path('instagram/', include('api.urls')),
+    # path('followers/', views.get_followers, name='get_followers'),    
 
 ]
 

@@ -74,3 +74,16 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order by {self.full_name} on {self.order_date}"
+
+
+class InfluencerUser(models.Model):
+    name = models.CharField(max_length=40)
+    email = models.EmailField()
+    instagramUsername = models.CharField(max_length=40)
+    password = models.CharField(max_length=10)
+    followersCount = models.IntegerField()
+    picture = models.ImageField(upload_to='influencer_pictures/',default='')
+    isInfluencer = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name

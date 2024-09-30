@@ -160,3 +160,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
 }
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # assuming you have a directory named 'static' at the project root
+]
